@@ -1,0 +1,42 @@
+* {
+  margin: 0;
+  padding: 0;
+  box-sizing: border-box;
+}
+
+.weather {
+  width: 30%;
+  display: flex;
+  flex-direction: column;
+  height: 100%;
+}
+.weather-content-now {
+  width: 100%;
+  height: 100%;
+}
+.weather-week {
+  width: 70%;
+  display: flex;
+  color: black;
+  flex-direction: column;
+  gap: 30px;
+}
+.weather-week-title {
+  text-align: center;
+}
+.weather-details {
+  display: flex;
+}
+
+#root {
+  display: flex;
+  flex-direction: column;
+  background-image: url(https://avatars.mds.yandex.net/i?id=a82698965f9446a891e2a40c67b2389f_l-8425660-images-thumbs&n=13);
+  background-size: cover;
+  color: white;
+}
+.App {
+  display: flex;
+  justify-content: space-between;
+  padding: 10px;
+}
