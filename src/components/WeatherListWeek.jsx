@@ -1,7 +1,7 @@
 import { useEffect } from "react";
 import React from "react";
 import { fetchWeatherDataWeek } from "./Api";
-import { convertPressureToMmHg } from "./UI/help/Convert";
+import WeatherDaysInfo from "./WeatherDaysInfo";
 
 const WeatherListWeek = ({ weatherWeek, setWeatherWeek }) => {
   useEffect(() => {
@@ -17,7 +17,7 @@ const WeatherListWeek = ({ weatherWeek, setWeatherWeek }) => {
             dailyForecasts[date3] = {
               temp: 0,
               count: 0,
-              weather: forecast.weather[0].description,
+              weather: forecast.weather[0],
               humidity: forecast.main.humidity,
               pressure: forecast.main.pressure,
             };
@@ -39,28 +39,14 @@ const WeatherListWeek = ({ weatherWeek, setWeatherWeek }) => {
       }
     }
     handleFetchWeatherWeek();
-  }, [setWeatherWeek]);
+  }, []);
 
   return (
     <div className="weather-week">
       <div className="weather-week-title">
         <h1>Погода в Ельце на 5 дней</h1>
       </div>
-      <div className="weather-details">
-        {weatherWeek.length > 0 ? (
-          weatherWeek.map((day, index) => (
-            <div key={index}>
-              <h4>День {day.date}</h4>
-              <p>Температура: {day.temp}°C</p>
-              <p>Описание: {day.weather}</p>
-              <p>Влажность: {day.humidity}%</p>
-              <p>Давление: {convertPressureToMmHg(day.pressure)} мм рт. ст.</p>
-            </div>
-          ))
-        ) : (
-          <h1>Данные о погоде недоступны</h1>
-        )}
-      </div>
+      <WeatherDaysInfo weatherWeek={weatherWeek} />
     </div>
   );
 };

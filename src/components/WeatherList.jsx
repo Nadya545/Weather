@@ -1,45 +1,35 @@
-import React, { useEffect } from "react";
+import React, { useState } from "react";
 import { fetchWeatherData } from "./Api";
-import { convertPressureToMmHg } from "./UI/help/Convert";
+import MyButton from "./UI/button/MyButton";
+import WeatherOneDayInfo from "./WeatherOneDayInfo";
 
 const WeatherList = ({ weather, setWeather }) => {
-  useEffect(() => {
-    async function handleFetchWeather() {
+  const [error, setError] = useState(null);
+  const [btnClick, setBtnClick] = useState(true);
+  async function handleFetchWeather() {
+    try {
       const data = await fetchWeatherData();
-      console.log(data);
       setWeather(data);
+      console.log(data);
+      setBtnClick(false); //- кнопка нажата при запросе данных ,когда нажимаешь узнать вызывается эта функция
+    } catch (err) {
+      console.error("Ошибка при получении данных о погоде:", err);
+      setError("Не удалось загрузить данные о погоде.");
     }
-    handleFetchWeather();
-  }, [setWeather]);
+  }
 
   return (
     <div className="weather">
       <div className="weather-content-now">
+        <h1 className="title-now">Погода в Ельце сейчас</h1> <br />
+        {btnClick && (
+          <MyButton onClick={handleFetchWeather}>узнать</MyButton>
+        )}{" "}
+        <br />
+        {error && <h1>{error}</h1>}
         {weather && weather.weather && weather.main ? (
-          <>
-            <h1>Погода в Ельце сейчас:</h1>
-            <img
-              src={`http://openweathermap.org/img/wn/${weather.weather[0].icon}@2x.png`}
-              alt={weather.weather[0].description}
-            />
-            <p>Температура: {weather.main.temp}°C</p>
-            <p>Температура по ощущениям: {weather.main.feels_like}°C</p>
-            <p>Влажность: {weather.main.humidity}%</p>
-            <p>Описание: {weather.weather[0].description}</p>
-            <p>Скорость ветра: {weather.wind.speed} м/с</p>
-            <p>
-              Давление: {convertPressureToMmHg(weather.main.pressure)} мм рт.ст.
-            </p>
-            {weather.rain && weather.rain["1h"] && (
-              <p>Дождь: {weather.rain["1h"]} мм/ч</p>
-            )}
-            {weather.snow && weather.snow["1h"] && (
-              <p>Снег: {weather.snow["1h"]} мм/ч</p>
-            )}
-          </>
-        ) : (
-          <h1>Данные о погоде недоступны</h1>
-        )}
+          <WeatherOneDayInfo weather={weather} />
+        ) : null}
       </div>
     </div>
   );

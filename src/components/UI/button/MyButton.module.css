@@ -1,9 +1,9 @@
 .myBtn {
   padding: 5px, 15px;
-  color: rgb(128, 0, 100);
-  font-size: 14px;
+  color: white;
+  font-size: 20px;
   background: transparent;
-  border: 1px solid rgb(128, 0, 128);
+  border: 2px solid white;
   cursor: pointer;
-  width: 200px;
+  width: 100px;
 }
