@@ -1,9 +1,9 @@
 import React from "react";
 
-const WeatherDaysInfo = ({ weatherWeek }) => {
+const WeatherDaysInfo = ({ weatherWeek = [] }) => {
   return (
     <div className="weather-details">
-      {weatherWeek.length > 0 ? (
+      {!!weatherWeek.length ? (
         weatherWeek.map((day, index) => (
           <div key={index}>
             <h4>День {day.date}</h4>

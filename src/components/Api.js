@@ -1,4 +1,4 @@
-import { url1, url2 } from "./UI/help/constants";
+import { url1, url2 } from "./helpers/constants";
 import axios from "axios";
 export async function fetchWeatherData() {
   try {

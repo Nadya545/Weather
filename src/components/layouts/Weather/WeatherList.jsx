@@ -1,6 +1,6 @@
-import React, { useState } from "react";
-import { fetchWeatherData } from "./Api";
-import MyButton from "./UI/button/MyButton";
+import React, { useState, useEffect } from "react";
+import { fetchWeatherData } from "../../Api";
+import Button from "../../UI/button/Button";
 import WeatherOneDayInfo from "./WeatherOneDayInfo";
 
 const WeatherList = ({ weather, setWeather }) => {
@@ -18,13 +18,15 @@ const WeatherList = ({ weather, setWeather }) => {
     }
   }
 
+  useEffect(() => {
+    console.log(weather);
+  }, [weather]);
+
   return (
     <div className="weather">
       <div className="weather-content-now">
         <h1 className="title-now">Погода в Ельце сейчас</h1> <br />
-        {btnClick && (
-          <MyButton onClick={handleFetchWeather}>узнать</MyButton>
-        )}{" "}
+        {btnClick && <Button onClick={handleFetchWeather}>узнать</Button>}{" "}
         <br />
         {error && <h1>{error}</h1>}
         {weather && weather.weather && weather.main ? (

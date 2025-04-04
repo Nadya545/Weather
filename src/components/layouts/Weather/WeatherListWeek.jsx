@@ -1,6 +1,6 @@
 import { useEffect } from "react";
 import React from "react";
-import { fetchWeatherDataWeek } from "./Api";
+import { fetchWeatherDataWeek } from "../../Api";
 import WeatherDaysInfo from "./WeatherDaysInfo";
 
 const WeatherListWeek = ({ weatherWeek, setWeatherWeek }) => {
