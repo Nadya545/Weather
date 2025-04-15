@@ -50,3 +50,8 @@
 .calendar .day.today.selected {
   border: 2px solid lightgray;
 }
+
+.container-weather-calendar {
+  display: flex;
+  justify-content: space-around;
+}

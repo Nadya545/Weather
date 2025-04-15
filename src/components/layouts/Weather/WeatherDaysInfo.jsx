@@ -1,6 +1,6 @@
 import React from "react";
 
-const WeatherDaysInfo = ({ weatherWeek = [] }) => {
+function WeatherDaysInfo({ weatherWeek = [] }) {
   return (
     <div className="weather-details">
       {!!weatherWeek.length ? (
@@ -20,6 +20,6 @@ const WeatherDaysInfo = ({ weatherWeek = [] }) => {
       )}
     </div>
   );
-};
+}
 
 export default WeatherDaysInfo;

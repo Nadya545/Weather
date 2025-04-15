@@ -1,10 +1,10 @@
 import { useEffect } from "react";
 import React from "react";
-import { fetchWeatherDataWeek } from "../../Api";
+import { fetchWeatherDataWeek } from "../../../helpers/Api";
 import WeatherDaysInfo from "./WeatherDaysInfo";
-import { aggregatWeatherData } from "../../AggregateData";
+import { aggregatWeatherData } from "../../../helpers/AggregateData";
 
-const WeatherListWeek = ({ weatherWeek, setWeatherWeek }) => {
+function WeatherListWeek({ weatherWeek, setWeatherWeek }) {
   useEffect(() => {
     async function handleFetchWeatherWeek() {
       const data2 = await fetchWeatherDataWeek();
@@ -26,6 +26,6 @@ const WeatherListWeek = ({ weatherWeek, setWeatherWeek }) => {
       <WeatherDaysInfo weatherWeek={weatherWeek} />
     </div>
   );
-};
+}
 
 export default WeatherListWeek;

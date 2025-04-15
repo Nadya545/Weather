@@ -1,7 +1,7 @@
 import React from "react";
-import { convertPressureToMmHg } from "../../helpers/help";
+import { convertPressureToMmHg } from "../../../helpers/help";
 
-const WeatherOneDayInfo = ({ weather }) => {
+function WeatherOneDayInfo({ weather }) {
   return (
     <div>
       <img
@@ -21,6 +21,6 @@ const WeatherOneDayInfo = ({ weather }) => {
       )}
     </div>
   );
-};
+}
 
 export default WeatherOneDayInfo;

@@ -1,6 +1,8 @@
-import { url1, url2 } from "../Components/constants/constants";
+import { url1, url2 } from "../constants/constants";
 import axios from "axios";
-import { location, apiKey2 } from "../Components/constants/constants";
+import { location, apiKey2 } from "../constants/constants";
+import { iconSet } from "../constants/constants";
+
 export async function fetchWeatherData() {
   try {
     const response = await axios.get(url1);
@@ -22,7 +24,7 @@ export async function fetchWeatherDataWeek() {
 
 export async function fetchWeatherDataCalendar(date) {
   const formattedDate = date.toISOString().split("T")[0];
-  const url3 = `https://weather.visualcrossing.com/VisualCrossingWebServices/rest/services/timeline/${location}/${formattedDate}?key=${apiKey2}&unitGroup=metric&lang=ru`;
+  const url3 = `https://weather.visualcrossing.com/VisualCrossingWebServices/rest/services/timeline/${location}/${formattedDate}?key=${apiKey2}&iconSet=${iconSet}&unitGroup=metric&lang=ru`;
   try {
     const response3 = await axios.get(url3);
     return response3.data;

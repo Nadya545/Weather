@@ -3,7 +3,7 @@ import React from "react";
 import WeatherList from "./Components/layouts/Weather/WeatherList";
 import { useState } from "react";
 import WeatherListWeek from "./Components/layouts/Weather/WeatherListWeek";
-import Calendar from "./Components/calendar/Calendar";
+import { Calendar } from "./Components/layouts/calendar/Calendar";
 
 function App() {
   const [weather, setWeather] = useState([]);
@@ -16,7 +16,7 @@ function App() {
   }
   return (
     <div className="App">
-      <WeatherList weather={weather} setWeather={setWeather} />
+      <WeatherList weatherData={weather} setWeather={setWeather} />
       <Calendar />
       <WeatherListWeek
         weatherWeek={weatherWeek}
