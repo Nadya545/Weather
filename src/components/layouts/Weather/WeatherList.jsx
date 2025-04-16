@@ -1,5 +1,5 @@
 import React, { useState, useEffect } from "react";
-import { fetchWeatherData } from "../../../helpers/Api";
+import { fetchWeatherData } from "../../../Api/Api";
 import Button from "../../UI/button/Button";
 import WeatherOneDayInfo from "./WeatherOneDayInfo";
 

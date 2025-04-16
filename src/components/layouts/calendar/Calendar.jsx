@@ -1,27 +1,12 @@
 import React, { useEffect } from "react";
 import "./calendar.css";
 import { useState } from "react";
-import { fetchWeatherDataCalendar } from "../../../helpers/Api";
+import { fetchWeatherDataCalendar } from "../../../Api/Api";
+import WeatherCalendarNow from "./WeatherCalendarNow";
+import { monthNames, years, weekDaysNames } from "../../../constants/constants";
 import WeatherCalendar from "./WeatherCalendar";
 
-export function Calendar() {
-  const years = [2024, 2025, 2026];
-  const monthNames = [
-    "Январь",
-    "Февраль",
-    "Март",
-    "Апрель",
-    "Май",
-    "Июнь",
-    "Июль",
-    "Август",
-    "Сентябрь",
-    "Октябрь",
-    "Ноябрь",
-    "Декабрь",
-  ];
-  const weekDaysNames = ["Пн", "Вт", "Ср", "Чт", "Пт", "Сб", "Вс"];
-
+function Calendar() {
   const [monthData, setMonthData] = useState([]);
   const [selectedYear, setSelectedYear] = useState(new Date().getFullYear());
   const [selectedMonth, setSelectedMonth] = useState(new Date().getMonth() + 1);
@@ -54,20 +39,17 @@ export function Calendar() {
 
     return monthData;
   }
-  useEffect(() => {
-    setMonthData(generateMonthData(selectedYear, selectedMonth));
-  }, [selectedYear, selectedMonth]);
+
+  setMonthData(generateMonthData(selectedYear, selectedMonth));
 
   function handleYearChange(event) {
     const newYear = Number(event.target.value);
     setSelectedYear(newYear);
-    setMonthData(generateMonthData(newYear, selectedMonth));
   }
 
   function handleMonthChange(event) {
     const newMonth = Number(event.target.value);
     setSelectedMonth(newMonth);
-    setMonthData(generateMonthData(selectedYear, newMonth));
   }
   function handlePrevMonth() {
     if (selectedMonth === 1) {
@@ -90,14 +72,15 @@ export function Calendar() {
   }
 
   async function handleWeatherCalendarClick(date) {
+    console.log("Дата, на которую нажали:", date);
     if (date instanceof Date) {
       try {
         const weatherDay = new Date(
           Date.UTC(date.getFullYear(), date.getMonth(), date.getDate()) // создаю обьект дата с учетом часового пояса и времени
         );
         const weather = await fetchWeatherDataCalendar(weatherDay);
-        setData(weather);
         console.log(weather);
+        setData(weather);
       } catch (err) {
         console.error("Ошибка при получении данных о погоде", err);
       }
@@ -159,7 +142,10 @@ export function Calendar() {
           </table>
         </div>
         <div className="weather-calendar-info">
-          {data && data.currentConditions ? (
+          {data.currentConditions ? <WeatherCalendarNow data={data} /> : null}
+        </div>
+        <div className="weather-calendar-info">
+          {!data.currentConditions && data.days ? (
             <WeatherCalendar data={data} />
           ) : null}
         </div>
@@ -167,3 +153,5 @@ export function Calendar() {
     </>
   );
 }
+
+export default Calendar;

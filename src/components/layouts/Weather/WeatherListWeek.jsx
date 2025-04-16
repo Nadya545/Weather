@@ -1,6 +1,6 @@
 import { useEffect } from "react";
 import React from "react";
-import { fetchWeatherDataWeek } from "../../../helpers/Api";
+import { fetchWeatherDataWeek } from "../../../Api/Api";
 import WeatherDaysInfo from "./WeatherDaysInfo";
 import { aggregatWeatherData } from "../../../helpers/AggregateData";
 
