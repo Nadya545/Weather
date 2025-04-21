@@ -1,46 +1,59 @@
-import React, { useEffect } from "react";
+import React from "react";
 import "./calendar.css";
 import { useState } from "react";
 import { fetchWeatherDataCalendar } from "../../../Api/Api";
 import WeatherCalendarNow from "./WeatherCalendarNow";
 import { monthNames, years, weekDaysNames } from "../../../constants/constants";
 import WeatherCalendar from "./WeatherCalendar";
+import PartlyCloudIcon from "../../../icons/PartlyCloudIcon";
+import CloudyIcon from "../../../icons/CloudyIcon";
+import ClearIcon from "../../../icons/ClearIcon";
+import RainIcon from "../../../icons/RainIcon";
+
+export const weatherIcons = {
+  "partly-cloudy-day": <PartlyCloudIcon />,
+  "cloudy-day": <CloudyIcon />,
+  "clear-day": <ClearIcon />,
+  rain: <RainIcon />,
+};
+
+function generateMonthData(year, month) {
+  const daysInMonth = new Date(year, month, 0).getDate(); // рассчитываю правильное кол-во дней в каждом месяце и году
+  const monthData = [];
+  let week = [];
+
+  const firstDayOfMonth = new Date(year, month - 1, 1).getDay(); //получаю первый день месяца
+  const offset = firstDayOfMonth === 0 ? 6 : firstDayOfMonth - 1;
+
+  for (let i = 0; i < offset; i++) {
+    week.push(null);
+  }
+
+  for (let day = 1; day <= daysInMonth; day++) {
+    const date = new Date(year, month - 1, day);
+    week.push(date);
+
+    if (date.getDay() === 0 || day === daysInMonth) {
+      monthData.push(week);
+      week = [];
+    }
+  }
+
+  while (week.length < 7) week.push(null);
+  if (week.length > 0) monthData.push(week);
+
+  return monthData;
+}
+const initialDate = generateMonthData(
+  new Date().getFullYear(),
+  new Date().getMonth() + 1
+);
 
 function Calendar() {
-  const [monthData, setMonthData] = useState([]);
+  const [monthData, setMonthData] = useState([initialDate]);
   const [selectedYear, setSelectedYear] = useState(new Date().getFullYear());
   const [selectedMonth, setSelectedMonth] = useState(new Date().getMonth() + 1);
   const [data, setData] = useState({}); //для отрисовки погоды календаря
-
-  function generateMonthData(year, month) {
-    const daysInMonth = new Date(year, month, 0).getDate(); // рассчитываю правильное кол-во дней в каждом месяце и году
-    const monthData = [];
-    let week = [];
-
-    const firstDayOfMonth = new Date(year, month - 1, 1).getDay(); //получаю первый день месяца
-    const offset = firstDayOfMonth === 0 ? 6 : firstDayOfMonth - 1;
-
-    for (let i = 0; i < offset; i++) {
-      week.push(null);
-    }
-
-    for (let day = 1; day <= daysInMonth; day++) {
-      const date = new Date(year, month - 1, day);
-      week.push(date);
-
-      if (date.getDay() === 0 || day === daysInMonth) {
-        monthData.push(week);
-        week = [];
-      }
-    }
-
-    while (week.length < 7) week.push(null);
-    if (week.length > 0) monthData.push(week);
-
-    return monthData;
-  }
-
-  setMonthData(generateMonthData(selectedYear, selectedMonth));
 
   function handleYearChange(event) {
     const newYear = Number(event.target.value);
@@ -70,7 +83,6 @@ function Calendar() {
     }
     setMonthData(generateMonthData(selectedYear, selectedMonth));
   }
-
   async function handleWeatherCalendarClick(date) {
     console.log("Дата, на которую нажали:", date);
     if (date instanceof Date) {
@@ -121,7 +133,7 @@ function Calendar() {
               </tr>
             </thead>
             <tbody>
-              {monthData.map((week, index) => (
+              {initialDate.map((week, index) => (
                 <tr key={index} className="week">
                   {week.map((date, index) =>
                     date ? (

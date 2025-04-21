@@ -25,6 +25,7 @@ export async function fetchWeatherDataWeek() {
 export async function fetchWeatherDataCalendar(date) {
   const formattedDate = date.toISOString().split("T")[0];
   const url3 = `https://weather.visualcrossing.com/VisualCrossingWebServices/rest/services/timeline/${location}/${formattedDate}?key=${apiKey2}&iconSet=${iconSet}&unitGroup=metric&lang=ru`;
+
   try {
     const response3 = await axios.get(url3);
     return response3.data;

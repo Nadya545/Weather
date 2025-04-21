@@ -1,12 +1,12 @@
 import React from "react";
+import { weatherIcons } from "./Calendar";
 const WeatherCalendarNow = ({ data }) => {
   console.log("Код иконки:", data.currentConditions.icon);
+  const IconComponent = weatherIcons[data.currentConditions.icon];
   return (
     <div className="weatherCalendar">
-      <img
-        src={`https://weather.visualcrossing.com/img/wn/${data.currentConditions.icon}@2x.png`}
-        alt={data.currentConditions.conditions}
-      />
+      {IconComponent}
+      <p>{data.currentConditions.conditions}</p>
       <p>{data.currentConditions.temp}°C</p>
     </div>
   );
