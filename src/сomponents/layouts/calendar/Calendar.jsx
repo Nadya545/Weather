@@ -1,7 +1,7 @@
 import React from "react";
 import "./calendar.css";
 import { useState } from "react";
-import { fetchWeatherDataCalendar } from "../../../api/Api";
+import { fetchWeatherDataCalendar } from "../../../Api/Api";
 import WeatherCalendarNow from "./WeatherCalendarNow";
 import { monthNames, years, weekDaysNames } from "../../../constants/constants";
 import WeatherCalendar from "./WeatherCalendar";
