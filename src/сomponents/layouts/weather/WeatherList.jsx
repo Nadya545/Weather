@@ -1,6 +1,6 @@
 import React, { useState, useEffect } from "react";
-import { fetchWeatherData } from "../../../Api/Api";
-import Button from "../../UI/button/Button";
+import { fetchWeatherData } from "../../../api/Api";
+import Button from "../../../UI/button/Button";
 import WeatherOneDayInfo from "./WeatherOneDayInfo";
 
 function WeatherList({ weatherData, setWeather }) {

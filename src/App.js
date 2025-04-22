@@ -1,9 +1,9 @@
 import "./App.css";
 import React from "react";
-import WeatherList from "./Components/layouts/Weather/WeatherList";
+import WeatherList from "./сomponents/layouts/weather/WeatherList";
 import { useState } from "react";
-import WeatherListWeek from "./Components/layouts/Weather/WeatherListWeek";
-import Calendar from "./Components/layouts/Calendar/Calendar";
+import WeatherListWeek from "./сomponents/layouts/weather/WeatherListWeek";
+import Calendar from "./сomponents/layouts/calendar/Calendar";
 
 function App() {
   const [weather, setWeather] = useState([]);
