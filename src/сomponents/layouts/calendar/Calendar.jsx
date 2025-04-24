@@ -9,6 +9,7 @@ import PartlyCloudIcon from "../../../icons/PartlyCloudIcon";
 import CloudyIcon from "../../../icons/CloudyIcon";
 import ClearIcon from "../../../icons/ClearIcon";
 import RainIcon from "../../../icons/RainIcon";
+import { fetchСoordinates } from "../../../Api/Api";
 
 export const weatherIcons = {
   "partly-cloudy-day": <PartlyCloudIcon />,
@@ -49,7 +50,7 @@ const initialDate = generateMonthData(
   new Date().getMonth() + 1
 );
 
-function Calendar() {
+function Calendar({ handleCoordinates }) {
   const [monthData, setMonthData] = useState([initialDate]);
   const [selectedYear, setSelectedYear] = useState(new Date().getFullYear());
   const [selectedMonth, setSelectedMonth] = useState(new Date().getMonth() + 1);
@@ -83,16 +84,23 @@ function Calendar() {
     }
     setMonthData(generateMonthData(selectedYear, selectedMonth));
   }
-  async function handleWeatherCalendarClick(date) {
-    console.log("Дата, на которую нажали:", date);
+
+  async function handleWeatherCalendarClick(date, event) {
     if (date instanceof Date) {
       try {
-        const weatherDay = new Date(
-          Date.UTC(date.getFullYear(), date.getMonth(), date.getDate()) // создаю обьект дата с учетом часового пояса и времени
-        );
-        const weather = await fetchWeatherDataCalendar(weatherDay);
-        console.log(weather);
-        setData(weather);
+        const coordinate = await handleCoordinates(event);
+        if (coordinate) {
+          const weatherDay = new Date(
+            Date.UTC(date.getFullYear(), date.getMonth(), date.getDate()) // создаю обьект дата с учетом часового пояса и времени
+          );
+
+          const weather = await fetchWeatherDataCalendar(
+            weatherDay,
+            coordinate
+          );
+          console.log(weather);
+          setData(weather);
+        }
       } catch (err) {
         console.error("Ошибка при получении данных о погоде", err);
       }
@@ -140,7 +148,9 @@ function Calendar() {
                       <td
                         key={index}
                         className="day"
-                        onClick={() => handleWeatherCalendarClick(date)}
+                        onClick={(event) =>
+                          handleWeatherCalendarClick(date, event)
+                        }
                       >
                         {date.getDate()}
                       </td>

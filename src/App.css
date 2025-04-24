@@ -57,5 +57,20 @@
   flex-direction: column;
   gap: 200px;
   width: 100%;
+
   margin: 0px;
+}
+
+.coordinate-form {
+  display: flex;
+}
+
+.coordinate-input {
+  height: 25px;
+  padding: 5px, 15px;
+  color: white;
+  font-size: 15px;
+  background: transparent;
+  border: 2px solid white;
+  height: 25px;
 }
