@@ -74,3 +74,23 @@
   border: 2px solid white;
   height: 25px;
 }
+
+.weather-left-form {
+  display: flex;
+  flex-direction: column;
+  gap: 20px;
+  width: 50%;
+  padding-left: 20px !important;
+}
+.weather-right-form {
+  display: flex;
+  flex-direction: column;
+  width: 50%;
+}
+
+.weather-big-container {
+  display: flex;
+}
+.btn-weather-coordinates {
+  width: 20%;
+}

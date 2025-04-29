@@ -1,26 +1,22 @@
 import React, { useState } from "react";
 import { fetchСoordinates } from "../../../Api/Api";
 import Button from "../../../UI/button/Button";
-import Calendar from "../calendar/Calendar";
 
-const Coordinates = () => {
+const Coordinates = ({ setLocation }) => {
   const [city, setCity] = useState("");
-  const [lat, setLat] = useState(null);
-  const [lon, setLon] = useState(null);
 
   async function handleCoordinates(event) {
     event.preventDefault();
-
     try {
-      const coordinates = await fetchСoordinates(city);
+      const coordinates = await fetchСoordinates(city); //получаю в консоли города по названию в инпуте
       console.log(coordinates);
 
       if (coordinates && coordinates[0].lat && coordinates[0].lon) {
-        setLat(coordinates[0].lat);
-        setLon(coordinates[0].lon);
-
-        console.log(coordinates[0].lat, coordinates[0].lon);
-        return { lat: coordinates[0].lat, lon: coordinates[0].lon };
+        setLocation({
+          lat: coordinates[0].lat,
+          lon: coordinates[0].lon,
+        });
+        console.log(coordinates[0].lat, coordinates[0].lon); // вытаскиваю широту и долготу и передаю в стейт с помощью setLocation
       }
     } catch (err) {
       console.error("Ошибка при получении координат", err);
@@ -46,7 +42,6 @@ const Coordinates = () => {
           узнать
         </Button>
       </form>
-      <Calendar handleCoordinates={handleCoordinates} />
     </>
   );
 };

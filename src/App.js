@@ -5,6 +5,7 @@ import { useState } from "react";
 import WeatherListWeek from "./сomponents/layouts/weather/WeatherListWeek";
 import Calendar from "./сomponents/layouts/calendar/Calendar";
 import Coordinates from "./сomponents/layouts/weather/Coordinates";
+import WeatherForm from "./сomponents/layouts/weather/WeatherForm";
 
 function App() {
   const [weather, setWeather] = useState([]);
@@ -19,7 +20,7 @@ function App() {
     <div className="App">
       <WeatherList weatherData={weather} setWeather={setWeather} />
 
-      <Coordinates />
+      <WeatherForm />
 
       <WeatherListWeek
         weatherWeek={weatherWeek}

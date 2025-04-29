@@ -1,7 +1,6 @@
 import React from "react";
 import "./calendar.css";
 import { useState } from "react";
-import { fetchWeatherDataCalendar } from "../../../Api/Api";
 import WeatherCalendarNow from "./WeatherCalendarNow";
 import { monthNames, years, weekDaysNames } from "../../../constants/constants";
 import WeatherCalendar from "./WeatherCalendar";
@@ -9,13 +8,15 @@ import PartlyCloudIcon from "../../../icons/PartlyCloudIcon";
 import CloudyIcon from "../../../icons/CloudyIcon";
 import ClearIcon from "../../../icons/ClearIcon";
 import RainIcon from "../../../icons/RainIcon";
-import { fetchСoordinates } from "../../../Api/Api";
 
 export const weatherIcons = {
   "partly-cloudy-day": <PartlyCloudIcon />,
   "cloudy-day": <CloudyIcon />,
   "clear-day": <ClearIcon />,
   rain: <RainIcon />,
+  cloudy: <CloudyIcon />,
+  clear: <ClearIcon />,
+  "partly-cloudy": <PartlyCloudIcon />,
 };
 
 function generateMonthData(year, month) {
@@ -50,7 +51,7 @@ const initialDate = generateMonthData(
   new Date().getMonth() + 1
 );
 
-function Calendar({ handleCoordinates }) {
+function Calendar({ setDate }) {
   const [monthData, setMonthData] = useState([initialDate]);
   const [selectedYear, setSelectedYear] = useState(new Date().getFullYear());
   const [selectedMonth, setSelectedMonth] = useState(new Date().getMonth() + 1);
@@ -85,26 +86,13 @@ function Calendar({ handleCoordinates }) {
     setMonthData(generateMonthData(selectedYear, selectedMonth));
   }
 
-  async function handleWeatherCalendarClick(date, event) {
-    if (date instanceof Date) {
-      try {
-        const coordinate = await handleCoordinates(event);
-        if (coordinate) {
-          const weatherDay = new Date(
-            Date.UTC(date.getFullYear(), date.getMonth(), date.getDate()) // создаю обьект дата с учетом часового пояса и времени
-          );
+  async function handleWeatherCalendarClick(date) {
+    const weatherDay = new Date(
+      Date.UTC(date.getFullYear(), date.getMonth(), date.getDate()) // создаю обьект дата с учетом часового пояса и времени
+    );
 
-          const weather = await fetchWeatherDataCalendar(
-            weatherDay,
-            coordinate
-          );
-          console.log(weather);
-          setData(weather);
-        }
-      } catch (err) {
-        console.error("Ошибка при получении данных о погоде", err);
-      }
-    }
+    setDate(weatherDay);
+    console.log(weatherDay); // просто запоминаю дату в календаре при нажатии на число и передаю в стейт c помощью setDate
   }
 
   return (
@@ -148,9 +136,7 @@ function Calendar({ handleCoordinates }) {
                       <td
                         key={index}
                         className="day"
-                        onClick={(event) =>
-                          handleWeatherCalendarClick(date, event)
-                        }
+                        onClick={() => handleWeatherCalendarClick(date)}
                       >
                         {date.getDate()}
                       </td>
