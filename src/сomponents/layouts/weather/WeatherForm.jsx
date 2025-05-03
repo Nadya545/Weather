@@ -4,6 +4,7 @@ import Coordinates from "./Coordinates";
 import { fetchWeatherDataCalendar } from "../../../Api/Api";
 import WeatherFormRenderNow from "./WeatherFormRenderNow.jsx";
 import WeatherFormRenderCalendar from "./WeatherFormRenderCalendar";
+import HeaderInfoWeather from "./HeaderInfoWeather.jsx";
 
 const WeatherForm = () => {
   const [weatherParams, setWeatherParams] = useState({
@@ -16,10 +17,11 @@ const WeatherForm = () => {
 
   const [renderWeather, setRenderWeather] = useState([]);
 
-  function setLocation(coordinates) {
+  function setLocation(coordinates, name) {
     setWeatherParams((prev) => ({
       ...prev,
       coordinates: coordinates,
+      name: name,
     }));
   }
 
@@ -51,10 +53,14 @@ const WeatherForm = () => {
 
   return (
     <>
+      <div className="weather-header-container">
+        <HeaderInfoWeather weatherParams={weatherParams} />
+      </div>
       <div className="weather-big-container">
         <div className="weather-left-form">
           <Coordinates setLocation={setLocation} />
           <Calendar setDate={setDate} />
+
           <button
             onClick={getWeatherDateCoordinates}
             className="btn-weather-coordinates"

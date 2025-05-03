@@ -15,8 +15,13 @@ const Coordinates = ({ setLocation }) => {
         setLocation({
           lat: coordinates[0].lat,
           lon: coordinates[0].lon,
+          name: coordinates[0].name,
         });
-        console.log(coordinates[0].lat, coordinates[0].lon); // вытаскиваю широту и долготу и передаю в стейт с помощью setLocation
+        console.log(
+          coordinates[0].lat,
+          coordinates[0].lon,
+          coordinates[0].name
+        ); // вытаскиваю широту и долготу и передаю в стейт с помощью setLocation
       }
     } catch (err) {
       console.error("Ошибка при получении координат", err);

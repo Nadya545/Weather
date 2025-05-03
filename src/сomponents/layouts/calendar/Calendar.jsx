@@ -55,7 +55,7 @@ function Calendar({ setDate }) {
   const [monthData, setMonthData] = useState([initialDate]);
   const [selectedYear, setSelectedYear] = useState(new Date().getFullYear());
   const [selectedMonth, setSelectedMonth] = useState(new Date().getMonth() + 1);
-  const [data, setData] = useState({}); //для отрисовки погоды календаря
+  const [data] = useState({}); //для отрисовки погоды к
 
   function handleYearChange(event) {
     const newYear = Number(event.target.value);

@@ -18,14 +18,14 @@ function App() {
   }
   return (
     <div className="App">
-      <WeatherList weatherData={weather} setWeather={setWeather} />
+      {/*<WeatherList weatherData={weather} setWeather={setWeather} />*/}
 
       <WeatherForm />
 
-      <WeatherListWeek
+      {/*<WeatherListWeek
         weatherWeek={weatherWeek}
         setWeatherWeek={setWeatherWeek}
-      />
+      />*/}
     </div>
   );
 }
