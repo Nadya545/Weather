@@ -12,6 +12,7 @@ const WeatherForm = () => {
     coordinates: {
       lon: "38.5",
       lat: "52.6",
+      name: "Елец",
     },
   });
 

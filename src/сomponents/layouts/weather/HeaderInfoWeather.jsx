@@ -27,9 +27,9 @@ const HeaderInfoWeather = ({ weatherParams }) => {
     <div>
       {data && data.days ? (
         <div>
-          <p>{weatherParams.name}</p>
+           <p>{weatherParams.coordinates.name}</p>
           <p>{weatherParams.date.toISOString().split("T")[0]}</p>
-          <p>{data.days[0].datetime}</p>
+          {/*<p>{data.days[0].datetime}</p>*/}
         </div>
       ) : null}
     </div>
