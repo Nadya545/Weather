@@ -52,53 +52,59 @@
   color: white;
   height: 100vh;
   justify-content: center;
-  align-items: center;
 }
 .App {
   display: flex;
-  justify-content: space-between;
   flex-direction: column;
-  gap: 200px;
+  gap: 20px;
   width: 100%;
-
   margin: 0px;
 }
 
 .coordinate-form {
   display: flex;
+  margin-bottom: 60px;
+  gap: 10px;
 }
 
 .coordinate-input {
-  height: 25px;
   padding: 5px, 15px;
   color: white;
-  font-size: 15px;
+  font-size: 20px;
   background: transparent;
   border: 2px solid white;
-  height: 25px;
+  height: 35px;
 }
 
 .weather-left-form {
   display: flex;
   flex-direction: column;
   gap: 20px;
-  width: 50%;
+
   justify-content: center;
   align-items: center;
 }
 .weather-right-form {
   display: flex;
   flex-direction: column;
-  width: 50%;
+  font-size: 30px;
 }
 
 .weather-big-container {
   display: flex;
   justify-content: center;
   align-items: center;
+  gap: 50px;
+  margin-top: 30px;
 }
 .btn-weather-coordinates {
-  width: 20%;
+  width: 140px;
+  padding: 15px, 17px;
+  color: white;
+  font-size: 20px;
+  background: transparent;
+  border: 2px solid white;
+  cursor: pointer;
 }
 .weather-header-container {
   display: flex;
@@ -106,4 +112,7 @@
   align-items: center;
   width: 100%;
   justify-content: center;
+  margin-top: 30px;
+  font-size: 30px;
+  text-align: center;
 }

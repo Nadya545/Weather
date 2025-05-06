@@ -100,16 +100,26 @@ function Calendar({ setDate }) {
       <div className="container-weather-calendar">
         <div className="calendar">
           <header>
-            <button onClick={handlePrevMonth}>{"<"}</button>
+            <button className="btn-select" onClick={handlePrevMonth}>
+              {"<"}
+            </button>
 
-            <select onChange={handleMonthChange} value={selectedMonth}>
+            <select
+              className="select-month"
+              onChange={handleMonthChange}
+              value={selectedMonth}
+            >
               {monthNames.map((month, index) => (
                 <option key={index} value={index + 1}>
                   {month}
                 </option>
               ))}
             </select>
-            <select onChange={handleYearChange} value={selectedYear}>
+            <select
+              className="select-year"
+              onChange={handleYearChange}
+              value={selectedYear}
+            >
               {years.map((year) => (
                 <option key={year} value={year}>
                   {year}
@@ -117,7 +127,9 @@ function Calendar({ setDate }) {
               ))}
             </select>
 
-            <button onClick={handleNextMonth}>{">"}</button>
+            <button className="btn-select" onClick={handleNextMonth}>
+              {">"}
+            </button>
           </header>
 
           <table>
