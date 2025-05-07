@@ -5,6 +5,7 @@ import { fetchWeatherDataCalendar } from "../../../Api/Api";
 import WeatherFormRenderNow from "./WeatherFormRenderNow.jsx";
 import WeatherFormRenderCalendar from "./WeatherFormRenderCalendar";
 import HeaderInfoWeather from "./HeaderInfoWeather.jsx";
+import Loader from "../../../UI/loader/Loader.jsx";
 
 const WeatherForm = () => {
   const [weatherParams, setWeatherParams] = useState({
@@ -17,6 +18,8 @@ const WeatherForm = () => {
   });
 
   const [renderWeather, setRenderWeather] = useState([]);
+
+  const [loading, setLoading] = useState(false);
 
   function setLocation(coordinates, name) {
     setWeatherParams((prev) => ({
@@ -34,6 +37,7 @@ const WeatherForm = () => {
   }
 
   async function getWeatherDateCoordinates() {
+    setLoading(true);
     try {
       const response = await fetchWeatherDataCalendar(weatherParams);
 
@@ -45,6 +49,8 @@ const WeatherForm = () => {
         err
       );
       return null;
+    } finally {
+      setLoading(false);
     }
   }
   /* function getWeatherDateCoordinatesRender() {
@@ -54,33 +60,41 @@ const WeatherForm = () => {
 
   return (
     <>
-      <div className="weather-header-container">
-        <HeaderInfoWeather weatherParams={weatherParams} />
-      </div>
-      <div className="weather-big-container">
-        <div className="weather-left-form">
-          <Coordinates setLocation={setLocation} />
-          <Calendar setDate={setDate} />
+      {loading ? (
+        <Loader />
+      ) : (
+        <div>
+          <div className="weather-header-container">
+            <HeaderInfoWeather weatherParams={weatherParams} />
+          </div>
+          <div className="weather-big-container">
+            <div className="weather-left-form">
+              <Coordinates setLoading={setLoading} setLocation={setLocation} />
+              <Calendar setLoading={setLoading} setDate={setDate} />
 
-          <button
-            onClick={getWeatherDateCoordinates}
-            className="btn-weather-coordinates"
-          >
-            Получить погоду
-          </button>
-        </div>
-        <div className="weather-right-form">
-          {renderWeather && renderWeather.currentConditions ? (
-            <WeatherFormRenderNow renderWeather={renderWeather} />
-          ) : null}
+              <button
+                onClick={getWeatherDateCoordinates}
+                className="btn-weather-coordinates"
+              >
+                Получить погоду
+              </button>
+            </div>
+            <div className="weather-right-form">
+              <div>
+                {renderWeather && renderWeather.currentConditions ? (
+                  <WeatherFormRenderNow renderWeather={renderWeather} />
+                ) : null}
 
-          {!renderWeather.currentConditions && renderWeather.days ? (
-            <WeatherFormRenderCalendar renderWeather={renderWeather} />
-          ) : null}
+                {!renderWeather.currentConditions && renderWeather.days ? (
+                  <WeatherFormRenderCalendar renderWeather={renderWeather} />
+                ) : null}
+              </div>
+            </div>
+          </div>
         </div>
-      </div>
+      )}
+      ;
     </>
   );
 };
-
 export default WeatherForm;

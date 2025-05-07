@@ -51,7 +51,7 @@ const initialDate = generateMonthData(
   new Date().getMonth() + 1
 );
 
-function Calendar({ setDate }) {
+function Calendar({ setDate, setLoading }) {
   const [monthData, setMonthData] = useState([initialDate]);
   const [selectedYear, setSelectedYear] = useState(new Date().getFullYear());
   const [selectedMonth, setSelectedMonth] = useState(new Date().getMonth() + 1);
@@ -87,13 +87,18 @@ function Calendar({ setDate }) {
   }
 
   async function handleWeatherCalendarClick(date) {
+    setLoading(true);
+
     const weatherDay = new Date(
       Date.UTC(date.getFullYear(), date.getMonth(), date.getDate()) // создаю обьект дата с учетом часового пояса и времени
     );
 
-    setDate(weatherDay);
-    console.log(weatherDay); // просто запоминаю дату в календаре при нажатии на число и передаю в стейт c помощью setDate
-  }
+    setTimeout(() => {
+      setDate(weatherDay);
+      console.log(weatherDay);
+      setLoading(false);
+    }, 2000);
+  } // просто запоминаю дату в календаре при нажатии на число и передаю в стейт c помощью setDate
 
   return (
     <>

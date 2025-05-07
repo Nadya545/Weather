@@ -2,11 +2,12 @@ import React, { useState } from "react";
 import { fetchСoordinates } from "../../../Api/Api";
 import Button from "../../../UI/button/Button";
 
-const Coordinates = ({ setLocation }) => {
+const Coordinates = ({ setLocation, setLoading }) => {
   const [city, setCity] = useState("");
 
   async function handleCoordinates(event) {
     event.preventDefault();
+    setLoading(true);
     try {
       const coordinates = await fetchСoordinates(city); //получаю в консоли города по названию в инпуте
       console.log(coordinates);
@@ -25,6 +26,8 @@ const Coordinates = ({ setLocation }) => {
       }
     } catch (err) {
       console.error("Ошибка при получении координат", err);
+    } finally {
+      setLoading(false);
     }
   }
 
@@ -34,7 +37,7 @@ const Coordinates = ({ setLocation }) => {
         <input
           className="coordinate-input"
           type="text"
-          placeholder="Ваш город"
+          placeholder="  Ваш город"
           onChange={(event) => {
             setCity(event.target.value);
           }}
