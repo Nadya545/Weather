@@ -37,7 +37,7 @@ const Coordinates = ({ setLocation, setLoading }) => {
         <input
           className="coordinate-input"
           type="text"
-          placeholder="  Ваш город"
+          placeholder="  Введите ваш город..."
           onChange={(event) => {
             setCity(event.target.value);
           }}
@@ -47,7 +47,7 @@ const Coordinates = ({ setLocation, setLoading }) => {
           type="submit"
           onClick={handleCoordinates}
         >
-          узнать
+          🔍
         </Button>
       </form>
     </>

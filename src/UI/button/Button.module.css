@@ -1,10 +1,11 @@
 .myBtn {
-  padding: 7px, 17px;
+  position: absolute;
+  right: 10px;
   color: white;
   font-size: 20px;
   background: transparent;
-  border: 2px solid white;
+  border: none;
   cursor: pointer;
-  width: 100px;
   height: 35px;
+  bottom: 3px;
 }

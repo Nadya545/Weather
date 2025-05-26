@@ -1,6 +1,6 @@
 .calendar header {
   display: flex;
-  justify-content: space-around;
+  justify-content: space-between;
   margin-bottom: 8px;
   font-size: 30px;
 }
@@ -8,6 +8,18 @@
 .calendar header button,
 .calendar header select {
   margin: 0 4px;
+  background-color: #ff80abcf;
+  border: 1px solid white;
+  color: white;
+  outline: none;
+  cursor: pointer;
+  transition: background-color 0.3s;
+}
+.calendar header button:hover,
+.calendar header select:hover {
+  background-color: rgb(51, 51, 171);
+  color: white;
+  cursor: pointer;
 }
 
 .calendar table {
@@ -15,7 +27,8 @@
   border-collapse: separate;
   border-spacing: 0;
   margin: auto;
-  font-size: 30px;
+  font-size: 25px;
+  width: 100%;
 }
 
 .calendar th {
@@ -29,10 +42,12 @@
   vertical-align: middle;
   text-align: center;
   border: 2px solid transparent;
+  transition: background-color 0.3s;
 }
 
 .calendar .day:hover {
-  background-color: #eaeaea;
+  background-color: rgb(51, 51, 171);
+  color: white;
   cursor: pointer;
 }
 
@@ -55,6 +70,7 @@
 
 .container-weather-calendar {
   display: flex;
+  width: 100%;
 }
 
 .weatherCalendar {
@@ -68,4 +84,8 @@
 .select-year,
 .select-month {
   font-size: 20px;
+}
+
+.calendar {
+  width: 100%;
 }

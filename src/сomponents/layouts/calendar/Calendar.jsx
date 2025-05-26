@@ -51,9 +51,9 @@ const initialDate = generateMonthData(
   new Date().getMonth() + 1
 );
 
-function Calendar({ setDate, setLoading }) {
-  const [monthData, setMonthData] = useState([initialDate]);
-  const [selectedYear, setSelectedYear] = useState(new Date().getFullYear());
+function Calendar({ setDate, setLoading, selectedYear, setSelectedYear }) {
+  const [setMonthData] = useState([initialDate]);
+
   const [selectedMonth, setSelectedMonth] = useState(new Date().getMonth() + 1);
   const [data] = useState({}); //для отрисовки погоды к
 
@@ -106,7 +106,15 @@ function Calendar({ setDate, setLoading }) {
         <div className="calendar">
           <header>
             <button className="btn-select" onClick={handlePrevMonth}>
-              {"<"}
+              <svg
+                xmlns="http://www.w3.org/2000/svg"
+                width="24"
+                height="24"
+                fill="white"
+                viewBox="0 0 24 24"
+              >
+                <path d="M15 18l-6-6 6-6v12z" />
+              </svg>
             </button>
 
             <select
@@ -133,7 +141,15 @@ function Calendar({ setDate, setLoading }) {
             </select>
 
             <button className="btn-select" onClick={handleNextMonth}>
-              {">"}
+              <svg
+                xmlns="http://www.w3.org/2000/svg"
+                width="24"
+                height="24"
+                fill="white"
+                viewBox="0 0 24 24"
+              >
+                <path d="M9 18l6-6-6-6v12z" />
+              </svg>
             </button>
           </header>
 

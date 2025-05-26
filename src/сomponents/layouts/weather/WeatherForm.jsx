@@ -6,6 +6,7 @@ import WeatherFormRenderNow from "./WeatherFormRenderNow.jsx";
 import WeatherFormRenderCalendar from "./WeatherFormRenderCalendar";
 import HeaderInfoWeather from "./HeaderInfoWeather.jsx";
 import Loader from "../../../UI/loader/Loader.jsx";
+import YearsContainer from "./YearsContainer.jsx";
 
 const WeatherForm = () => {
   const [weatherParams, setWeatherParams] = useState({
@@ -20,6 +21,8 @@ const WeatherForm = () => {
   const [renderWeather, setRenderWeather] = useState([]);
 
   const [loading, setLoading] = useState(false);
+
+  const [selectedYear, setSelectedYear] = useState(new Date().getFullYear());
 
   function setLocation(coordinates, name) {
     setWeatherParams((prev) => ({
@@ -63,22 +66,9 @@ const WeatherForm = () => {
       {loading ? (
         <Loader />
       ) : (
-        <div>
+        <div className="the_biggest_container">
           <div className="weather-header-container">
             <HeaderInfoWeather weatherParams={weatherParams} />
-          </div>
-          <div className="weather-big-container">
-            <div className="weather-left-form">
-              <Coordinates setLoading={setLoading} setLocation={setLocation} />
-              <Calendar setLoading={setLoading} setDate={setDate} />
-
-              <button
-                onClick={getWeatherDateCoordinates}
-                className="btn-weather-coordinates"
-              >
-                Получить погоду
-              </button>
-            </div>
             <div className="weather-right-form">
               <div>
                 {renderWeather && renderWeather.currentConditions ? (
@@ -91,6 +81,28 @@ const WeatherForm = () => {
               </div>
             </div>
           </div>
+          <div className="weather-big-container">
+            <div className="weather-left-form">
+              <Coordinates setLoading={setLoading} setLocation={setLocation} />
+              <Calendar
+                selectedYear={selectedYear}
+                setSelectedYear={setSelectedYear}
+                setLoading={setLoading}
+                setDate={setDate}
+              />
+
+              <button
+                onClick={getWeatherDateCoordinates}
+                className="btn-weather-coordinates"
+              >
+                Получить погоду
+              </button>
+            </div>
+          </div>
+          <YearsContainer
+            selectedYear={selectedYear}
+            setSelectedYear={setSelectedYear}
+          />
         </div>
       )}
       ;

@@ -4,9 +4,16 @@ const HeaderInfoWeather = ({ weatherParams }) => {
   return (
     <div>
       <div>
-        <div>
-          <p>{weatherParams.coordinates.name}</p>
-          <p>{weatherParams.date.toISOString().split("T")[0]}</p>
+        <div className="nameCity">
+          <h1>{weatherParams.coordinates.name}</h1>
+        </div>
+        <div className="date">
+          <h2>
+            {weatherParams.date.toLocaleDateString("ru-RU", {
+              day: "numeric",
+              month: "long",
+            })}
+          </h2>
         </div>
       </div>
     </div>
