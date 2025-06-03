@@ -19,6 +19,15 @@ export const monthNames = [
   "Ноябрь",
   "Декабрь",
 ];
-export const years = [2020, 2022, 2023, 2024, 2025, 2026];
+export const years = [2018, 2019, 2020, 2021, 2022, 2023, 2024, 2025, 2026];
 
 export const weekDaysNames = ["Пн", "Вт", "Ср", "Чт", "Пт", "Сб", "Вс"];
+
+export const initialWeatherParams = {
+  date: new Date(),
+  coordinates: {
+    lon: "38.5",
+    lat: "52.6",
+    name: "Елец",
+  },
+};

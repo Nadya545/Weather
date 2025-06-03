@@ -19,7 +19,7 @@ export const weatherIcons = {
   "partly-cloudy": <PartlyCloudIcon />,
 };
 
-function generateMonthData(year, month) {
+export function generateMonthData(year, month) {
   const daysInMonth = new Date(year, month, 0).getDate(); // рассчитываю правильное кол-во дней в каждом месяце и году
   const monthData = [];
   let week = [];
@@ -46,44 +46,50 @@ function generateMonthData(year, month) {
 
   return monthData;
 }
-const initialDate = generateMonthData(
+export const initialDate = generateMonthData(
   new Date().getFullYear(),
   new Date().getMonth() + 1
 );
 
-function Calendar({ setDate, setLoading, selectedYear, setSelectedYear }) {
-  const [setMonthData] = useState([initialDate]);
-
-  const [selectedMonth, setSelectedMonth] = useState(new Date().getMonth() + 1);
+function Calendar({
+  setDate,
+  setLoading,
+  selectedYear,
+  setSelectedYear,
+  monthData,
+  setMonthData,
+  selectedMonth,
+  setSelectedMonth,
+}) {
   const [data] = useState({}); //для отрисовки погоды к
 
   function handleYearChange(event) {
     const newYear = Number(event.target.value);
     setSelectedYear(newYear);
+    setMonthData(generateMonthData(newYear, selectedMonth));
   }
 
   function handleMonthChange(event) {
     const newMonth = Number(event.target.value);
     setSelectedMonth(newMonth);
+    setMonthData(generateMonthData(selectedYear, newMonth));
   }
   function handlePrevMonth() {
-    if (selectedMonth === 1) {
-      setSelectedMonth(12);
-      setSelectedYear(selectedYear - 1);
-    } else {
-      setSelectedMonth(selectedMonth - 1);
-    }
-    setMonthData(generateMonthData(selectedYear, selectedMonth));
+    const newMonth = selectedMonth === 1 ? 12 : selectedMonth - 1;
+    const newYear = selectedMonth === 1 ? selectedYear - 1 : selectedYear;
+
+    setSelectedMonth(newMonth);
+    setSelectedYear(newYear);
+    setMonthData(generateMonthData(newYear, newMonth));
   }
 
   function handleNextMonth() {
-    if (selectedMonth === 12) {
-      setSelectedMonth(1);
-      setSelectedYear(selectedYear + 1);
-    } else {
-      setSelectedMonth(selectedMonth + 1);
-    }
-    setMonthData(generateMonthData(selectedYear, selectedMonth));
+    const newMonth = selectedMonth === 12 ? 1 : selectedMonth + 1;
+    const newYear = selectedMonth === 12 ? selectedYear + 1 : selectedYear;
+
+    setSelectedMonth(newMonth);
+    setSelectedYear(newYear);
+    setMonthData(generateMonthData(newYear, newMonth));
   }
 
   async function handleWeatherCalendarClick(date) {
@@ -162,7 +168,7 @@ function Calendar({ setDate, setLoading, selectedYear, setSelectedYear }) {
               </tr>
             </thead>
             <tbody>
-              {initialDate.map((week, index) => (
+              {monthData.map((week, index) => (
                 <tr key={index} className="week">
                   {week.map((date, index) =>
                     date ? (

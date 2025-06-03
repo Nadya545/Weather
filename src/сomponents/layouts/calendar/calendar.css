@@ -4,6 +4,10 @@
   margin-bottom: 8px;
   font-size: 30px;
 }
+.select-month,
+.select-year {
+  width: 200px;
+}
 
 .calendar header button,
 .calendar header select {
