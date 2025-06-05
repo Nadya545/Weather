@@ -50,7 +50,7 @@
   background-image: url(https://i.pinimg.com/originals/39/62/7b/39627ba970f978b8756c7c1d2f591f62.jpg);
   background-size: cover;
   color: white;
-  height: auto;
+  height: 100vh !important;
   justify-content: center;
 }
 .App {
@@ -58,7 +58,7 @@
   flex-direction: column;
   gap: 20px;
   width: 100%;
-  height: auto;
+  height: 100vh !important;
   margin: 0px;
   font-family: "Trebuchet MS", "Lucida Sans Unicode", "Lucida Grande",
     "Lucida Sans", Arial, sans-serif;
@@ -160,7 +160,7 @@
   background-color: rgba(144, 48, 114, 0.5);
   width: 20%;
   min-width: 100px;
-  height: 703px;
+  height: 100vh;
   overflow-y: auto;
   overflow-x: hidden;
   scroll-snap-type: y mandatory;
