@@ -1,4 +1,4 @@
-import React from "react";
+import React, { JSX } from "react";
 import "./calendar.css";
 import { useState } from "react";
 import WeatherCalendarNow from "./WeatherCalendarNow";
@@ -9,7 +9,16 @@ import CloudyIcon from "../../../icons/CloudyIcon";
 import ClearIcon from "../../../icons/ClearIcon";
 import RainIcon from "../../../icons/RainIcon";
 
-export const weatherIcons = {
+type weatherIconsKey =
+  | "partly-cloudy-day"
+  | "cloudy-day"
+  | "clear-day"
+  | "rain"
+  | "cloudy"
+  | "clear"
+  | "partly-cloudy";
+
+export const weatherIcons: Record<weatherIconsKey, JSX.Element> = {
   "partly-cloudy-day": <PartlyCloudIcon />,
   "cloudy-day": <CloudyIcon />,
   "clear-day": <ClearIcon />,
@@ -19,7 +28,10 @@ export const weatherIcons = {
   "partly-cloudy": <PartlyCloudIcon />,
 };
 
-export function generateMonthData(year, month) {
+export function generateMonthData(
+  year: number,
+  month: number
+): (Date | null)[][] {
   const daysInMonth = new Date(year, month, 0).getDate(); // рассчитываю правильное кол-во дней в каждом месяце и году
   const monthData = [];
   let week = [];
@@ -51,7 +63,18 @@ export const initialDate = generateMonthData(
   new Date().getMonth() + 1
 );
 
-function Calendar({
+interface CalendarProps {
+  setDate: (date: Date) => void;
+  setLoading: (loading: boolean) => void;
+  selectedYear: number;
+  setSelectedYear: (year: number) => void;
+  monthData: (Date | null)[][];
+  setMonthData: (data: (Date | null)[][]) => void;
+  selectedMonth: number;
+  setSelectedMonth: (month: number) => void;
+}
+
+const Calendar: React.FC<CalendarProps> = ({
   setDate,
   setLoading,
   selectedYear,
@@ -60,20 +83,27 @@ function Calendar({
   setMonthData,
   selectedMonth,
   setSelectedMonth,
-}) {
-  const [data] = useState({}); //для отрисовки погоды к
+}) => {
+  const [data] = useState<{
+    currentConditions?: any;
+    days?: any;
+  }>({}); //для отрисовки погоды к
 
-  function handleYearChange(event) {
+  const handleYearChange: React.ChangeEventHandler<HTMLSelectElement> = (
+    event
+  ) => {
     const newYear = Number(event.target.value);
     setSelectedYear(newYear);
     setMonthData(generateMonthData(newYear, selectedMonth));
-  }
+  };
 
-  function handleMonthChange(event) {
+  const handleMonthChange: React.ChangeEventHandler<HTMLSelectElement> = (
+    event
+  ) => {
     const newMonth = Number(event.target.value);
     setSelectedMonth(newMonth);
     setMonthData(generateMonthData(selectedYear, newMonth));
-  }
+  };
   function handlePrevMonth() {
     const newMonth = selectedMonth === 1 ? 12 : selectedMonth - 1;
     const newYear = selectedMonth === 1 ? selectedYear - 1 : selectedYear;
@@ -92,7 +122,7 @@ function Calendar({
     setMonthData(generateMonthData(newYear, newMonth));
   }
 
-  async function handleWeatherCalendarClick(date) {
+  async function handleWeatherCalendarClick(date: Date) {
     setLoading(true);
 
     const weatherDay = new Date(
@@ -128,7 +158,7 @@ function Calendar({
               onChange={handleMonthChange}
               value={selectedMonth}
             >
-              {monthNames.map((month, index) => (
+              {monthNames.map((month: string, index: number) => (
                 <option key={index} value={index + 1}>
                   {month}
                 </option>
@@ -139,7 +169,7 @@ function Calendar({
               onChange={handleYearChange}
               value={selectedYear}
             >
-              {years.map((year) => (
+              {years.map((year: number) => (
                 <option key={year} value={year}>
                   {year}
                 </option>
@@ -162,7 +192,7 @@ function Calendar({
           <table>
             <thead>
               <tr>
-                {weekDaysNames.map((dayname) => (
+                {weekDaysNames.map((dayname: string) => (
                   <th key={dayname}>{dayname}</th>
                 ))}
               </tr>
@@ -199,6 +229,6 @@ function Calendar({
       </div>
     </>
   );
-}
+};
 
 export default Calendar;

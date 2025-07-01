@@ -1,9 +1,13 @@
 import React, { useEffect, useRef, useState } from "react";
 import { years } from "../../../constants/constants";
 
-const YearsContainer = ({ onYearChange }) => {
+interface YearsContainerProps {
+  onYearChange: (year: number) => void;
+}
+
+const YearsContainer: React.FC<YearsContainerProps> = ({ onYearChange }) => {
   const [activeYear, setActiveYear] = useState(2025);
-  const containerRef = useRef(null);
+  const containerRef = useRef<HTMLDivElement | null>(null);
 
   useEffect(() => {
     if (containerRef.current) {
@@ -31,7 +35,7 @@ const YearsContainer = ({ onYearChange }) => {
     }
   }, [activeYear]);
 
-  function handleYearClick(year) {
+  function handleYearClick(year: number) {
     setActiveYear(year);
     onYearChange(year);
   }

@@ -2,10 +2,24 @@ import React, { useState } from "react";
 import { fetchСoordinates } from "../../../Api/Api";
 import Button from "../../../UI/button/Button";
 
-const Coordinates = ({ setLocation, setLoading }) => {
+interface CoordinatesProps {
+  setLocation: (coordinates: Coordinates) => void;
+  setLoading: (loading: boolean) => void;
+}
+
+interface Coordinates {
+  lat: string;
+  lon: string;
+  name: string;
+}
+
+const CoordinatesComponent: React.FC<CoordinatesProps> = ({
+  setLocation,
+  setLoading,
+}) => {
   const [city, setCity] = useState("");
 
-  async function handleCoordinates(event) {
+  async function handleCoordinates(event: React.FormEvent<HTMLFormElement>) {
     event.preventDefault();
     setLoading(true);
     try {
@@ -33,7 +47,7 @@ const Coordinates = ({ setLocation, setLoading }) => {
 
   return (
     <>
-      <form className="coordinate-form">
+      <form className="coordinate-form" onSubmit={handleCoordinates}>
         <input
           className="coordinate-input"
           type="text"
@@ -42,11 +56,7 @@ const Coordinates = ({ setLocation, setLoading }) => {
             setCity(event.target.value);
           }}
         ></input>
-        <Button
-          className="coordinate-btn"
-          type="submit"
-          onClick={handleCoordinates}
-        >
+        <Button className="coordinate-btn" type="submit">
           🔍
         </Button>
       </form>
@@ -54,4 +64,4 @@ const Coordinates = ({ setLocation, setLoading }) => {
   );
 };
 
-export default Coordinates;
+export default CoordinatesComponent;

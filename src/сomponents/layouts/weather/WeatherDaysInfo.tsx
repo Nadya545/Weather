@@ -1,6 +1,19 @@
 import React from "react";
+interface WeatherDay {
+  date: string;
+  weather: {
+    icon: string;
+    description: string;
+  };
+  temp: number;
+}
 
-function WeatherDaysInfo({ weatherWeek = [] }) {
+interface WeatherDaysInfoProps {
+  weatherWeek: WeatherDay[];
+}
+const WeatherDaysInfo: React.FC<WeatherDaysInfoProps> = ({
+  weatherWeek = [],
+}) => {
   return (
     <div className="weather-details">
       {!!weatherWeek.length ? (
@@ -20,6 +33,6 @@ function WeatherDaysInfo({ weatherWeek = [] }) {
       )}
     </div>
   );
-}
+};
 
 export default WeatherDaysInfo;

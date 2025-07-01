@@ -1,6 +1,30 @@
-export function aggregatWeatherData(data) {
-  const dailyForecasts = {};
+interface WeatherForecast {
+  dt: number; // Время в формате Unix
+  weather: Array<{
+    description: string;
+    icon: string;
+  }>;
+  main: {
+    temp: number; // Температура
+    humidity: number; // Влажность
+    pressure: number; // Давление
+  };
+}
 
+interface WeatherData {
+  list: WeatherForecast[]; // Массив прогнозов
+}
+
+export function aggregatWeatherData(data: WeatherData) {
+  const dailyForecasts: {
+    [key: string]: {
+      temp: number;
+      count: number;
+      weather: any;
+      humidity: number;
+      pressure: number;
+    };
+  } = {};
   data.list.forEach((forecast) => {
     const date3 = new Date(forecast.dt * 1000).toLocaleDateString();
     if (!dailyForecasts[date3]) {

@@ -1,20 +1,39 @@
 import React, { useState } from "react";
 import Calendar from "../calendar/Calendar";
-import Coordinates from "./Coordinates";
+import CoordinatesComponent from "./CoordinatesComponent";
 import { fetchWeatherDataCalendar } from "../../../Api/Api";
-import WeatherFormRenderNow from "./WeatherFormRenderNow.jsx";
+import WeatherFormRenderNow from "./WeatherFormRenderNow";
 import WeatherFormRenderCalendar from "./WeatherFormRenderCalendar";
-import HeaderInfoWeather from "./HeaderInfoWeather.jsx";
-import Loader from "../../../UI/loader/Loader.jsx";
-import YearsContainer from "./YearsContainer.jsx";
+import HeaderInfoWeather from "./HeaderInfoWeather";
+import Loader from "../../../UI/loader/Loader";
+import YearsContainer from "./YearsContainer";
 import { initialDate } from "../calendar/Calendar";
 import { generateMonthData } from "../calendar/Calendar";
-import { initialWeatherParams } from "../../../constants/constants.js";
+import { initialWeatherParams } from "../../../constants/constants";
+interface Coordinates {
+  lon: string;
+  lat: string;
+  name: string;
+}
+interface WeatherData {
+  currentConditions?: {
+    // опишите структуру текущих условий
+    temp: number;
+    icon: string;
+    conditions: string;
+  };
+  days?: Array<{
+    // опишите структуру данных для дней
+    temp: number;
+    icon: string;
+    description: string;
+  }>;
+}
 
 const WeatherForm = () => {
   const [weatherParams, setWeatherParams] = useState(initialWeatherParams);
 
-  const [renderWeather, setRenderWeather] = useState([]);
+  const [renderWeather, setRenderWeather] = useState<WeatherData | null>(null);
 
   const [loading, setLoading] = useState(false);
 
@@ -24,15 +43,15 @@ const WeatherForm = () => {
 
   const [selectedMonth, setSelectedMonth] = useState(new Date().getMonth() + 1);
 
-  function setLocation(coordinates, name) {
+  function setLocation(coordinates: Coordinates) {
     setWeatherParams((prev) => ({
       ...prev,
       coordinates: coordinates,
-      name: name,
+      name: coordinates.name,
     }));
   }
 
-  function setDate(date) {
+  function setDate(date: Date) {
     setWeatherParams((prev) => ({
       ...prev,
       date: date,
@@ -60,7 +79,7 @@ const WeatherForm = () => {
     const weatherDateCoordinates = getWeatherDateCoordinates();
     setRenderWeather(weatherDateCoordinates);
   }*/
-  const handleYearChange = (newYear) => {
+  const handleYearChange = (newYear: number) => {
     setSelectedYear(newYear);
     setMonthData(generateMonthData(newYear, selectedMonth));
   };
@@ -79,7 +98,7 @@ const WeatherForm = () => {
                     <WeatherFormRenderNow renderWeather={renderWeather} />
                   ) : null}
 
-                  {!renderWeather.currentConditions && renderWeather.days ? (
+                  {!renderWeather?.currentConditions && renderWeather?.days ? (
                     <WeatherFormRenderCalendar renderWeather={renderWeather} />
                   ) : null}
                 </div>
@@ -87,7 +106,7 @@ const WeatherForm = () => {
             </div>
             <div className="weather-big-container">
               <div className="weather-left-form">
-                <Coordinates
+                <CoordinatesComponent
                   setLoading={setLoading}
                   setLocation={setLocation}
                 />

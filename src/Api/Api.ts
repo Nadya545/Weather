@@ -2,6 +2,14 @@ import { urlWeatherData, urlWeatherDataWeek } from "../constants/constants";
 import axios from "axios";
 import { apiKey2 } from "../constants/constants";
 import { iconSet } from "../constants/constants";
+export interface weatherParams {
+  date: Date;
+  coordinates: {
+    lon: string;
+    lat: string;
+    name: string;
+  };
+}
 
 export async function fetchWeatherData() {
   try {
@@ -22,13 +30,13 @@ export async function fetchWeatherDataWeek() {
   }
 }
 
-export function buildWeatherUrl(weatherParams) {
+export function buildWeatherUrl(weatherParams: weatherParams) {
   const location = `${weatherParams.coordinates.lat},${weatherParams.coordinates.lon}`;
   const formattedDate = weatherParams.date.toISOString().split("T")[0];
   return `https://weather.visualcrossing.com/VisualCrossingWebServices/rest/services/timeline/${location}/${formattedDate}?key=${apiKey2}&iconSet=${iconSet}&unitGroup=metric&lang=ru`;
 }
 
-export async function fetchWeatherDataCalendar(weatherParams) {
+export async function fetchWeatherDataCalendar(weatherParams: weatherParams) {
   console.log("Широта:", weatherParams.coordinates.lat);
   console.log("Долгота:", weatherParams.coordinates.lon);
   const urlWeatherDataCalendar = buildWeatherUrl(weatherParams);
@@ -42,7 +50,7 @@ export async function fetchWeatherDataCalendar(weatherParams) {
   }
 }
 
-export async function fetchСoordinates(city) {
+export async function fetchСoordinates(city: string) {
   const urlCoordinate = `https://nominatim.openstreetmap.org/search?q=${city}&format=json`;
   try {
     const coordinates = await axios.get(urlCoordinate);
