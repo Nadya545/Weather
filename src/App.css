@@ -63,12 +63,12 @@
   font-family: "Trebuchet MS", "Lucida Sans Unicode", "Lucida Grande",
     "Lucida Sans", Arial, sans-serif;
 }
-.the_biggest_container {
+.wrapper {
   display: flex;
   height: 100vh;
   height: auto;
 }
-.veryBigContainer {
+.bigContainer {
   display: flex;
   flex-direction: column;
   height: auto;

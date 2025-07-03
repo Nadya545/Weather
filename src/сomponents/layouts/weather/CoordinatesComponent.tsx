@@ -1,6 +1,6 @@
 import React, { useState } from "react";
-import { fetchСoordinates } from "../../../Api/Api";
-import Button from "../../../UI/button/Button";
+import { fetchСoordinates } from "../../../api/Api";
+import Button from "../../../ui/button/Button";
 
 interface CoordinatesProps {
   setLocation: (coordinates: Coordinates) => void;

@@ -1,46 +1,51 @@
 import React, { useState } from "react";
 import Calendar from "../calendar/Calendar";
 import CoordinatesComponent from "./CoordinatesComponent";
-import { fetchWeatherDataCalendar } from "../../../Api/Api";
+import { fetchWeatherDataCalendar } from "../../../api/Api";
 import WeatherFormRenderNow from "./WeatherFormRenderNow";
 import WeatherFormRenderCalendar from "./WeatherFormRenderCalendar";
 import HeaderInfoWeather from "./HeaderInfoWeather";
-import Loader from "../../../UI/loader/Loader";
+import Loader from "../../../ui/loader/Loader";
 import YearsContainer from "./YearsContainer";
 import { initialDate } from "../calendar/Calendar";
 import { generateMonthData } from "../calendar/Calendar";
 import { initialWeatherParams } from "../../../constants/constants";
+import useRequest from "../../../hooks/useRequest"; // Импортируем наш хук
+
 interface Coordinates {
   lon: string;
   lat: string;
   name: string;
 }
+
+interface CurrentConditions {
+  temp: number;
+  icon: string;
+  conditions: string;
+}
+
+interface DayWeather {
+  temp: number;
+  icon: string;
+  description: string;
+}
+
 interface WeatherData {
-  currentConditions?: {
-    // опишите структуру текущих условий
-    temp: number;
-    icon: string;
-    conditions: string;
-  };
-  days?: Array<{
-    // опишите структуру данных для дней
-    temp: number;
-    icon: string;
-    description: string;
-  }>;
+  currentConditions?: CurrentConditions;
+  days?: DayWeather[];
 }
 
 const WeatherForm = () => {
   const [weatherParams, setWeatherParams] = useState(initialWeatherParams);
-
-  const [renderWeather, setRenderWeather] = useState<WeatherData | null>(null);
-
-  const [loading, setLoading] = useState(false);
+  const {
+    state: weatherRequest,
+    makeRequest,
+    setLoading,
+    setError: setRequestError,
+  } = useRequest<WeatherData>();
 
   const [selectedYear, setSelectedYear] = useState(new Date().getFullYear());
-
   const [monthData, setMonthData] = useState(initialDate);
-
   const [selectedMonth, setSelectedMonth] = useState(new Date().getMonth() + 1);
 
   function setLocation(coordinates: Coordinates) {
@@ -58,82 +63,83 @@ const WeatherForm = () => {
     }));
   }
 
-  async function getWeatherDateCoordinates() {
-    setLoading(true);
-    try {
-      const response = await fetchWeatherDataCalendar(weatherParams);
-
-      setRenderWeather(response);
-      console.log(response);
-    } catch (err) {
-      console.error(
-        "Ошибка при получении данных о погоде по координатам):",
-        err
-      );
-      return null;
-    } finally {
-      setLoading(false);
+  const getWeatherDateCoordinates = async () => {
+    if (!weatherParams.coordinates || !weatherParams.date) {
+      setRequestError("Пожалуйста, выберите координаты и дату.");
+      return;
     }
-  }
-  /* function getWeatherDateCoordinatesRender() {
-    const weatherDateCoordinates = getWeatherDateCoordinates();
-    setRenderWeather(weatherDateCoordinates);
-  }*/
+
+    await makeRequest(() => fetchWeatherDataCalendar(weatherParams));
+  };
+
+  React.useEffect(() => {
+    setMonthData(generateMonthData(selectedYear, selectedMonth));
+  }, [selectedYear, selectedMonth]);
+
   const handleYearChange = (newYear: number) => {
     setSelectedYear(newYear);
     setMonthData(generateMonthData(newYear, selectedMonth));
   };
+
+  const handleMonthChange = (newMonth: number) => {
+    setSelectedMonth(newMonth);
+  };
+
   return (
     <>
-      {loading ? (
-        <Loader />
-      ) : (
-        <div className="the_biggest_container">
-          <div className="veryBigContainer">
-            <div className="weather-header-container">
-              <HeaderInfoWeather weatherParams={weatherParams} />
-              <div className="weather-right-form">
-                <div>
-                  {renderWeather && renderWeather.currentConditions ? (
-                    <WeatherFormRenderNow renderWeather={renderWeather} />
-                  ) : null}
+      {weatherRequest.loading && <Loader />}
+      {weatherRequest.error && (
+        <div className="error">{weatherRequest.error}</div>
+      )}
 
-                  {!renderWeather?.currentConditions && renderWeather?.days ? (
-                    <WeatherFormRenderCalendar renderWeather={renderWeather} />
-                  ) : null}
-                </div>
-              </div>
-            </div>
-            <div className="weather-big-container">
-              <div className="weather-left-form">
-                <CoordinatesComponent
-                  setLoading={setLoading}
-                  setLocation={setLocation}
+      <div className="wrapper">
+        <div className="bigContainer">
+          <div className="weather-header-container">
+            <HeaderInfoWeather weatherParams={weatherParams} />
+            <div className="weather-right-form">
+              {weatherRequest.data?.currentConditions ? (
+                <WeatherFormRenderNow renderWeather={weatherRequest.data} />
+              ) : weatherRequest.data?.days ? (
+                <WeatherFormRenderCalendar
+                  renderWeather={weatherRequest.data}
                 />
-                <Calendar
-                  selectedYear={selectedYear}
-                  setSelectedYear={setSelectedYear}
-                  setLoading={setLoading}
-                  setDate={setDate}
-                  monthData={monthData}
-                  setMonthData={setMonthData}
-                  selectedMonth={selectedMonth}
-                  setSelectedMonth={setSelectedMonth}
-                />
-
-                <button
-                  onClick={getWeatherDateCoordinates}
-                  className="btn-weather-coordinates"
-                >
-                  Получить погоду
-                </button>
-              </div>
+              ) : null}
             </div>
           </div>
 
-          <YearsContainer onYearChange={handleYearChange} />
+          <div className="weather-big-container">
+            <div className="weather-left-form">
+              <CoordinatesComponent
+                setLoading={setLoading}
+                setLocation={setLocation}
+              />
+              <Calendar
+                selectedYear={selectedYear}
+                setSelectedYear={setSelectedYear}
+                selectedMonth={selectedMonth}
+                setSelectedMonth={handleMonthChange}
+                setLoading={setLoading}
+                setDate={setDate}
+                monthData={monthData}
+                setMonthData={setMonthData}
+              />
+              <button
+                onClick={getWeatherDateCoordinates}
+                disabled={
+                  !weatherParams.coordinates ||
+                  !weatherParams.date ||
+                  weatherRequest.loading
+                }
+                className="btn-weather-coordinates"
+              >
+                Получить погоду
+              </button>
+            </div>
+          </div>
         </div>
-      )}
+
+        <YearsContainer onYearChange={handleYearChange} />
+      </div>
     </>
   );
 };

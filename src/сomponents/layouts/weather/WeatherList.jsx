@@ -8,9 +8,9 @@ function WeatherList({ weatherData, setWeather }) {
   const [btnClick, setBtnClick] = useState(true);
   async function handleFetchWeather() {
     try {
-      const data = await fetchWeatherData();
-      setWeather(data);
-      console.log(data);
+      const fetchWeatherData = await fetchWeatherData();
+      setWeather(fetchWeatherData);
+      console.log(fetchWeatherData);
       setBtnClick(false); //- кнопка нажата при запросе данных ,когда нажимаешь узнать вызывается эта функция
     } catch (err) {
       console.error("Ошибка при получении данных о погоде:", err);

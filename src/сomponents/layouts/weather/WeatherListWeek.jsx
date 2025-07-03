@@ -7,11 +7,11 @@ import { aggregatWeatherData } from "../../../helpers/AggregateData";
 function WeatherListWeek({ weatherWeek, setWeatherWeek }) {
   useEffect(() => {
     async function handleFetchWeatherWeek() {
-      const data2 = await fetchWeatherDataWeek();
-      console.log(data2);
+      const weeklyWeatherData = await fetchWeatherDataWeek();
+      console.log(weeklyWeatherData);
 
-      if (data2) {
-        const aggregateData = aggregatWeatherData(data2);
+      if (weeklyWeatherData) {
+        const aggregateData = aggregatWeatherData(weeklyWeatherData);
         setWeatherWeek(aggregateData);
       }
     }

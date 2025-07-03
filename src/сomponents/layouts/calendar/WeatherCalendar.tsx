@@ -1,5 +1,5 @@
 import React from "react";
-import { weatherIcons } from "./Calendar";
+import { weatherIcons } from "./const/const";
 interface WeatherData {
   days?: {
     icon: keyof typeof weatherIcons;

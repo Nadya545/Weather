@@ -4,29 +4,7 @@ import { useState } from "react";
 import WeatherCalendarNow from "./WeatherCalendarNow";
 import { monthNames, years, weekDaysNames } from "../../../constants/constants";
 import WeatherCalendar from "./WeatherCalendar";
-import PartlyCloudIcon from "../../../icons/PartlyCloudIcon";
-import CloudyIcon from "../../../icons/CloudyIcon";
-import ClearIcon from "../../../icons/ClearIcon";
-import RainIcon from "../../../icons/RainIcon";
-
-type weatherIconsKey =
-  | "partly-cloudy-day"
-  | "cloudy-day"
-  | "clear-day"
-  | "rain"
-  | "cloudy"
-  | "clear"
-  | "partly-cloudy";
-
-export const weatherIcons: Record<weatherIconsKey, JSX.Element> = {
-  "partly-cloudy-day": <PartlyCloudIcon />,
-  "cloudy-day": <CloudyIcon />,
-  "clear-day": <ClearIcon />,
-  rain: <RainIcon />,
-  cloudy: <CloudyIcon />,
-  clear: <ClearIcon />,
-  "partly-cloudy": <PartlyCloudIcon />,
-};
+import SvgInCalendar from "../../../icons/SvgInCalendar";
 
 export function generateMonthData(
   year: number,
@@ -64,24 +42,24 @@ export const initialDate = generateMonthData(
 );
 
 interface CalendarProps {
+  selectedYear: number;
+  selectedMonth: number;
+  monthData: (Date | null)[][];
   setDate: (date: Date) => void;
   setLoading: (loading: boolean) => void;
-  selectedYear: number;
   setSelectedYear: (year: number) => void;
-  monthData: (Date | null)[][];
   setMonthData: (data: (Date | null)[][]) => void;
-  selectedMonth: number;
   setSelectedMonth: (month: number) => void;
 }
 
 const Calendar: React.FC<CalendarProps> = ({
+  selectedYear,
+  monthData,
+  selectedMonth,
   setDate,
   setLoading,
-  selectedYear,
   setSelectedYear,
-  monthData,
   setMonthData,
-  selectedMonth,
   setSelectedMonth,
 }) => {
   const [data] = useState<{
@@ -142,15 +120,7 @@ const Calendar: React.FC<CalendarProps> = ({
         <div className="calendar">
           <header>
             <button className="btn-select" onClick={handlePrevMonth}>
-              <svg
-                xmlns="http://www.w3.org/2000/svg"
-                width="24"
-                height="24"
-                fill="white"
-                viewBox="0 0 24 24"
-              >
-                <path d="M15 18l-6-6 6-6v12z" />
-              </svg>
+              <SvgInCalendar />
             </button>
 
             <select

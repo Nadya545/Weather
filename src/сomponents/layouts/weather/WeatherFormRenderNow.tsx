@@ -6,13 +6,11 @@ import RainIcon from "../../../icons/RainIcon";
 
 interface WeatherData {
   currentConditions?: {
-    // опишите структуру текущих условий
     temp: number;
     icon: string;
     conditions: string;
   };
   days?: Array<{
-    // опишите структуру данных для дней
     temp: number;
     icon: string;
     description: string;
