@@ -8,13 +8,20 @@ const CoordinatesComponent: React.FC<CoordinatesProps> = ({
   setLoading,
 }) => {
   const [city, setCity] = useState("");
+  const [errorMessage, setErrorMessage] = useState<string | null>(null);
 
   async function handleCoordinates(event: React.FormEvent<HTMLFormElement>) {
     event.preventDefault();
     setLoading(true);
+    setErrorMessage(null);
     try {
       const coordinates = await fetchСoordinates(city); //получаю в консоли города по названию в инпуте
       console.log(coordinates);
+      if (!coordinates || coordinates.length === 0) {
+        throw new Error(
+          "Город не найден. Пожалуйста, проверьте название города и попробуйте снова."
+        );
+      }
 
       if (coordinates && coordinates[0].lat && coordinates[0].lon) {
         setLocation({
@@ -29,6 +36,9 @@ const CoordinatesComponent: React.FC<CoordinatesProps> = ({
         ); // вытаскиваю широту и долготу и передаю в стейт с помощью setLocation
       }
     } catch (err) {
+      const message =
+        err instanceof Error ? err.message : "Не удалось получить координаты";
+      setErrorMessage(message);
       console.error("Ошибка при получении координат", err);
     } finally {
       setLoading(false);
@@ -37,6 +47,16 @@ const CoordinatesComponent: React.FC<CoordinatesProps> = ({
 
   return (
     <>
+      {errorMessage && (
+        <div className="error-popup">
+          <div className="error-popup-content">
+            <span className="close" onClick={() => setErrorMessage(null)}>
+              &times;
+            </span>
+            <p>{errorMessage}</p>
+          </div>
+        </div>
+      )}
       <form className="coordinate-form" onSubmit={handleCoordinates}>
         <input
           className="coordinate-input"
