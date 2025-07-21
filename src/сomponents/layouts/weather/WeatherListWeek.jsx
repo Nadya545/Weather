@@ -1,8 +1,8 @@
 import { useEffect } from "react";
 import React from "react";
-import { fetchWeatherDataWeek } from "../../../Api/Api";
+import { fetchWeatherDataWeek } from "../../../api/apiWeather";
 import WeatherDaysInfo from "./WeatherDaysInfo";
-import { aggregatWeatherData } from "../../../helpers/AggregateData";
+import { aggregatWeatherData } from "../../../helpers/aggregateData";
 
 function WeatherListWeek({ weatherWeek, setWeatherWeek }) {
   useEffect(() => {

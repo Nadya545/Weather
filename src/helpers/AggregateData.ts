@@ -15,7 +15,7 @@ interface WeatherData {
   list: WeatherForecast[]; // Массив прогнозов
 }
 
-export function aggregatWeatherData(data: WeatherData) {
+export function aggregatWeatherData(weatherForecasts: WeatherData) {
   const dailyForecasts: {
     [key: string]: {
       temp: number;
@@ -25,19 +25,21 @@ export function aggregatWeatherData(data: WeatherData) {
       pressure: number;
     };
   } = {};
-  data.list.forEach((forecast) => {
-    const date3 = new Date(forecast.dt * 1000).toLocaleDateString();
-    if (!dailyForecasts[date3]) {
-      dailyForecasts[date3] = {
+  weatherForecasts.list.forEach((hourlyForecast) => {
+    const forecastDate = new Date(
+      hourlyForecast.dt * 1000
+    ).toLocaleDateString();
+    if (!dailyForecasts[forecastDate]) {
+      dailyForecasts[forecastDate] = {
         temp: 0,
         count: 0,
-        weather: forecast.weather[0],
-        humidity: forecast.main.humidity,
-        pressure: forecast.main.pressure,
+        weather: hourlyForecast.weather[0],
+        humidity: hourlyForecast.main.humidity,
+        pressure: hourlyForecast.main.pressure,
       };
     }
-    dailyForecasts[date3].temp += forecast.main.temp; // Sum temperatures
-    dailyForecasts[date3].count += 1;
+    dailyForecasts[forecastDate].temp += hourlyForecast.main.temp; // Sum temperatures
+    dailyForecasts[forecastDate].count += 1;
   });
   const aggregatedData = Object.keys(dailyForecasts).map((date) => ({
     date,

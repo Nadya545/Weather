@@ -1,7 +1,7 @@
-import { urlWeatherData, urlWeatherDataWeek } from "../constants/constants";
+import { urlWeatherData, urlWeatherDataWeek } from "../constants/constUrl";
 import axios from "axios";
-import { apiKey2 } from "../constants/constants";
-import { iconSet } from "../constants/constants";
+import { apiKey2 } from "../constants/constApiKey";
+import { iconSet } from "../constants/constDiffrent";
 export interface weatherParams {
   date: Date;
   coordinates: {

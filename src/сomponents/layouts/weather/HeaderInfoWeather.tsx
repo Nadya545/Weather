@@ -1,14 +1,5 @@
 import React from "react";
-export interface weatherParamsProps {
-  weatherParams: {
-    date: Date;
-    coordinates: {
-      lon: string;
-      lat: string;
-      name: string;
-    };
-  };
-}
+import { weatherParamsProps } from "./typeWeather/typeWeather";
 const HeaderInfoWeather: React.FC<weatherParamsProps> = ({ weatherParams }) => {
   return (
     <div>

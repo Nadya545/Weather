@@ -1,5 +1,5 @@
 import React from "react";
-import { convertPressureToMmHg } from "../../../helpers/help";
+import { convertPressureToMmHg } from "../../../helpers/convertPressureToMmHg";
 
 function WeatherOneDayInfo({ weather }) {
   return (

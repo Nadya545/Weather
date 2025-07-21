@@ -1,17 +1,7 @@
 import React, { useState } from "react";
-import { fetchСoordinates } from "../../../api/Api";
-import Button from "../../../ui/button/Button";
-
-interface CoordinatesProps {
-  setLocation: (coordinates: Coordinates) => void;
-  setLoading: (loading: boolean) => void;
-}
-
-interface Coordinates {
-  lat: string;
-  lon: string;
-  name: string;
-}
+import { fetchСoordinates } from "../../../api/apiWeather";
+import MyButton from "../../../ui/button/MyButton";
+import { CoordinatesProps } from "./typeWeather/typeWeather";
 
 const CoordinatesComponent: React.FC<CoordinatesProps> = ({
   setLocation,
@@ -56,9 +46,7 @@ const CoordinatesComponent: React.FC<CoordinatesProps> = ({
             setCity(event.target.value);
           }}
         ></input>
-        <Button className="coordinate-btn" type="submit">
-          🔍
-        </Button>
+        <MyButton>🔍</MyButton>
       </form>
     </>
   );

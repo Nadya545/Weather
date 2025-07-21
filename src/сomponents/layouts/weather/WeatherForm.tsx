@@ -1,39 +1,18 @@
 import React, { useState } from "react";
 import Calendar from "../calendar/Calendar";
 import CoordinatesComponent from "./CoordinatesComponent";
-import { fetchWeatherDataCalendar } from "../../../api/Api";
+import { fetchWeatherDataCalendar } from "../../../api/apiWeather";
 import WeatherFormRenderNow from "./WeatherFormRenderNow";
 import WeatherFormRenderCalendar from "./WeatherFormRenderCalendar";
 import HeaderInfoWeather from "./HeaderInfoWeather";
 import Loader from "../../../ui/loader/Loader";
 import YearsContainer from "./YearsContainer";
-import { initialDate } from "../calendar/Calendar";
-import { generateMonthData } from "../calendar/Calendar";
-import { initialWeatherParams } from "../../../constants/constants";
+import { initialDate } from "../calendar/const/const";
+import { generateMonthData } from "../../../helpers/generateMonthData";
+import { initialWeatherParams } from "../../../constants/constDiffrent";
 import useRequest from "../../../hooks/useRequest"; // Импортируем наш хук
-
-interface Coordinates {
-  lon: string;
-  lat: string;
-  name: string;
-}
-
-interface CurrentConditions {
-  temp: number;
-  icon: string;
-  conditions: string;
-}
-
-interface DayWeather {
-  temp: number;
-  icon: string;
-  description: string;
-}
-
-interface WeatherData {
-  currentConditions?: CurrentConditions;
-  days?: DayWeather[];
-}
+import { WeatherData, Coordinates } from "./typeWeather/typeWeather";
+import MyButton from "../../../ui/button/MyButton";
 
 const WeatherForm = () => {
   const [weatherParams, setWeatherParams] = useState(initialWeatherParams);
@@ -123,17 +102,17 @@ const WeatherForm = () => {
                 monthData={monthData}
                 setMonthData={setMonthData}
               />
-              <button
+              <MyButton
                 onClick={getWeatherDateCoordinates}
                 disabled={
                   !weatherParams.coordinates ||
                   !weatherParams.date ||
                   weatherRequest.loading
                 }
-                className="btn-weather-coordinates"
+                size="big"
               >
                 Получить погоду
-              </button>
+              </MyButton>
             </div>
           </div>
         </div>

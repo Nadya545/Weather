@@ -1,56 +1,14 @@
-import React, { JSX } from "react";
+import React from "react";
 import "./calendar.css";
 import { useState } from "react";
 import WeatherCalendarNow from "./WeatherCalendarNow";
-import { monthNames, years, weekDaysNames } from "../../../constants/constants";
+import { monthNames } from "../../../constants/constMonthNames";
+import { years } from "../../../constants/constYears";
+import { weekDaysNames } from "../../../constants/constWeekDayName";
 import WeatherCalendar from "./WeatherCalendar";
 import SvgInCalendar from "../../../icons/SvgInCalendar";
-
-export function generateMonthData(
-  year: number,
-  month: number
-): (Date | null)[][] {
-  const daysInMonth = new Date(year, month, 0).getDate(); // рассчитываю правильное кол-во дней в каждом месяце и году
-  const monthData = [];
-  let week = [];
-
-  const firstDayOfMonth = new Date(year, month - 1, 1).getDay(); //получаю первый день месяца
-  const offset = firstDayOfMonth === 0 ? 6 : firstDayOfMonth - 1;
-
-  for (let i = 0; i < offset; i++) {
-    week.push(null);
-  }
-
-  for (let day = 1; day <= daysInMonth; day++) {
-    const date = new Date(year, month - 1, day);
-    week.push(date);
-
-    if (date.getDay() === 0 || day === daysInMonth) {
-      monthData.push(week);
-      week = [];
-    }
-  }
-
-  while (week.length < 7) week.push(null);
-  if (week.length > 0) monthData.push(week);
-
-  return monthData;
-}
-export const initialDate = generateMonthData(
-  new Date().getFullYear(),
-  new Date().getMonth() + 1
-);
-
-interface CalendarProps {
-  selectedYear: number;
-  selectedMonth: number;
-  monthData: (Date | null)[][];
-  setDate: (date: Date) => void;
-  setLoading: (loading: boolean) => void;
-  setSelectedYear: (year: number) => void;
-  setMonthData: (data: (Date | null)[][]) => void;
-  setSelectedMonth: (month: number) => void;
-}
+import { generateMonthData } from "../../../helpers/generateMonthData";
+import { CalendarProps } from "./type/type";
 
 const Calendar: React.FC<CalendarProps> = ({
   selectedYear,
@@ -65,7 +23,7 @@ const Calendar: React.FC<CalendarProps> = ({
   const [data] = useState<{
     currentConditions?: any;
     days?: any;
-  }>({}); //для отрисовки погоды к
+  }>({});
 
   const handleYearChange: React.ChangeEventHandler<HTMLSelectElement> = (
     event

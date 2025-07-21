@@ -50,7 +50,7 @@
   background-image: url(https://i.pinimg.com/originals/39/62/7b/39627ba970f978b8756c7c1d2f591f62.jpg);
   background-size: cover;
   color: white;
-  height: 100vh !important;
+  min-height: 100vh !important;
   justify-content: center;
 }
 .App {
@@ -58,7 +58,7 @@
   flex-direction: column;
   gap: 20px;
   width: 100%;
-  height: 100vh !important;
+  min-height: 100vh !important;
   margin: 0px;
   font-family: "Trebuchet MS", "Lucida Sans Unicode", "Lucida Grande",
     "Lucida Sans", Arial, sans-serif;
@@ -152,6 +152,9 @@
 }
 
 .yearsContainer {
+  position: sticky;
+  top: 0;
+  height: 100vh;
   display: flex;
   flex-direction: column;
   align-items: center; /* Центрируем кнопки по горизонтали */

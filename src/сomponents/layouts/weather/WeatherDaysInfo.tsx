@@ -1,16 +1,5 @@
 import React from "react";
-interface WeatherDay {
-  date: string;
-  weather: {
-    icon: string;
-    description: string;
-  };
-  temp: number;
-}
-
-interface WeatherDaysInfoProps {
-  weatherWeek: WeatherDay[];
-}
+import { WeatherDaysInfoProps } from "./typeWeather/typeWeather";
 const WeatherDaysInfo: React.FC<WeatherDaysInfoProps> = ({
   weatherWeek = [],
 }) => {

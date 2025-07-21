@@ -1,12 +1,10 @@
 import React, { useEffect, useRef, useState } from "react";
-import { years } from "../../../constants/constants";
-
-interface YearsContainerProps {
-  onYearChange: (year: number) => void;
-}
+import { years } from "../../../constants/constYears";
+import { YearsContainerProps } from "./typeWeather/typeWeather";
+import MyButton from "../../../ui/button/MyButton";
 
 const YearsContainer: React.FC<YearsContainerProps> = ({ onYearChange }) => {
-  const [activeYear, setActiveYear] = useState(2025);
+  const [activeYear, setActiveYear] = useState(new Date().getFullYear());
   const containerRef = useRef<HTMLDivElement | null>(null);
 
   useEffect(() => {
@@ -42,16 +40,17 @@ const YearsContainer: React.FC<YearsContainerProps> = ({ onYearChange }) => {
   return (
     <div className="yearsContainer" ref={containerRef}>
       {years.map((year) => (
-        <button
+        <MyButton
           key={year}
           className={`btn-yearsContainer ${
             year === activeYear ? "active" : ""
           }`}
           value={year}
           onClick={() => handleYearClick(year)}
+          size="normal"
         >
           {year}
-        </button>
+        </MyButton>
       ))}
     </div>
   );

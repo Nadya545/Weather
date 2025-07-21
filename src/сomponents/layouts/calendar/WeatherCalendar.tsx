@@ -1,19 +1,11 @@
 import React from "react";
 import { weatherIcons } from "./const/const";
-interface WeatherData {
-  days?: {
-    icon: keyof typeof weatherIcons;
-    description: string;
-    temp: number;
-  }[];
-}
-interface WeatherCalendarProps {
-  data: WeatherData;
-}
+import WeatherCalendarUnderfind from "./WeatherCalendarUnderfind";
+import { WeatherCalendarProps } from "./type/type";
 
 const WeatherCalendar: React.FC<WeatherCalendarProps> = ({ data }) => {
   if (!data.days || data.days.length === 0) {
-    return <div className="weatherCalendar">Нет данных о погоде</div>;
+    return <WeatherCalendarUnderfind />;
   }
 
   console.log("Код иконки:", data.days[0].icon);
