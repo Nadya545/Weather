@@ -39,8 +39,8 @@ export interface weatherParamsProps {
   weatherParams: {
     date: Date;
     coordinates: {
-      lon: string;
-      lat: string;
+      lon: number;
+      lat: number;
       name: string;
     };
   };
@@ -60,8 +60,8 @@ export interface WeatherDaysInfoProps {
 }
 
 export interface Coordinates {
-  lon: string;
-  lat: string;
+  lon: number;
+  lat: number;
   name: string;
 }
 
@@ -88,8 +88,8 @@ export interface YearsContainerProps {
 export interface InitialWeatherParams {
   date: Date;
   coordinates: {
-    lon: string;
-    lat: string;
+    lon: number;
+    lat: number;
     name: string;
   };
 }

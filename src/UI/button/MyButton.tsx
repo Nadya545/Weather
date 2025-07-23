@@ -6,18 +6,18 @@ interface ButtonProps extends React.ButtonHTMLAttributes<HTMLButtonElement> {
   size?: "small" | "normal" | "big";
 }
 
+const sizeClassMap = {
+  small: classes.small,
+  normal: classes.normal,
+  big: classes.big,
+};
 const MyButton: React.FC<ButtonProps> = ({
   children,
   size = "small",
   ...props
 }) => {
-  const buttonClasses = `${classes.button} ${
-    size === "small"
-      ? classes.small
-      : size === "normal"
-      ? classes.normal
-      : classes.big
-  }`;
+  const buttonClasses = `${classes.button} ${sizeClassMap[size]}`;
+
   return (
     <button {...props} className={buttonClasses}>
       {children}

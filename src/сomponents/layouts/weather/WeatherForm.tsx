@@ -20,7 +20,6 @@ const WeatherForm = () => {
     state: weatherRequest,
     makeRequest,
     setLoading,
-    setError: setRequestError,
   } = useRequest<WeatherData>();
 
   const [selectedYear, setSelectedYear] = useState(new Date().getFullYear());
@@ -43,11 +42,6 @@ const WeatherForm = () => {
   }
 
   const getWeatherDateCoordinates = async () => {
-    if (!weatherParams.coordinates || !weatherParams.date) {
-      setRequestError("Пожалуйста, выберите координаты и дату.");
-      return;
-    }
-
     await makeRequest(() => fetchWeatherDataCalendar(weatherParams));
   };
 

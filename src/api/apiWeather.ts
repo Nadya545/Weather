@@ -5,8 +5,8 @@ import { iconSet } from "../constants/constDiffrent";
 export interface weatherParams {
   date: Date;
   coordinates: {
-    lon: string;
-    lat: string;
+    lon: number;
+    lat: number;
     name: string;
   };
 }
