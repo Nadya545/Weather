@@ -5,7 +5,6 @@ import { fetchWeatherDataCalendar } from "../../../api/apiWeather";
 import WeatherFormRenderNow from "./WeatherFormRenderNow";
 import WeatherFormRenderCalendar from "./WeatherFormRenderCalendar";
 import HeaderInfoWeather from "./HeaderInfoWeather";
-import Loader from "../../../ui/loader/Loader";
 import YearsContainer from "./YearsContainer";
 import { initialDate } from "../calendar/const/const";
 import { generateMonthData } from "../../../helpers/generateMonthData";
@@ -60,7 +59,6 @@ const WeatherForm = () => {
 
   return (
     <>
-      {weatherRequest.loading && <Loader />}
       {weatherRequest.error && (
         <div className="error">{weatherRequest.error}</div>
       )}

@@ -3,7 +3,6 @@ import { fetchСoordinates } from "../../../api/apiWeather";
 import MyButton from "../../../ui/button/MyButton";
 import { CoordinatesProps } from "./typeWeather/typeWeather";
 import useRequest from "../../../hooks/useRequest";
-import Loader from "../../../ui/loader/Loader";
 
 interface CoordinateData {
   lat: number;
@@ -43,7 +42,6 @@ const CoordinatesComponent: React.FC<CoordinatesProps> = ({ setLocation }) => {
 
   return (
     <>
-      {coordinateRequest.loading && <Loader />}
       {coordinateRequest.error && (
         <div className="error-popup">
           <div className="error-popup-content">

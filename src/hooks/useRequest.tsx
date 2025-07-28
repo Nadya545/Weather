@@ -1,4 +1,5 @@
 import { useState } from "react";
+import { loaderEventEmitter } from "../utils/eventEmitter";
 
 interface RequestState<T> {
   loading: boolean;
@@ -40,6 +41,7 @@ const useRequest = <T,>(
 
   const setLoading = (loading: boolean) => {
     setState((prev) => ({ ...prev, loading }));
+    loaderEventEmitter.emit(loading); // Добавлен вызов эмиттера
   };
 
   const reset = () => {
