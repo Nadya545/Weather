@@ -1,5 +1,5 @@
 import React from "react";
-import "./calendar.css";
+import "./calendar.scss";
 import { useState } from "react";
 import WeatherCalendarNow from "./WeatherCalendarNow";
 import { monthNames } from "../../../constants/constMonthNames";

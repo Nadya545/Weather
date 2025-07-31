@@ -1,0 +1,108 @@
+$primary-color: #ff80abcf;
+$hover-color: rgb(51, 51, 171);
+$selected-color: dodgerblue;
+$today-color: dodgerblue;
+$text-color: white;
+$border-color: white;
+$today-hover: #0081ff;
+$font-size-large: 30px;
+$font-size-medium: 25px;
+$font-size-small: 20px;
+$spacing: 4px;
+$day-padding: 4px 8px;
+
+// Миксин для кнопок и select
+@mixin interactive-element {
+  margin: 0 $spacing;
+  background-color: $primary-color;
+  border: 1px solid $border-color;
+  color: $text-color;
+  outline: none;
+  cursor: pointer;
+  transition: background-color 0.3s;
+
+  &:hover {
+    background-color: $hover-color;
+    color: $text-color;
+  }
+}
+
+.calendar {
+  width: 100%;
+
+  header {
+    display: flex;
+    justify-content: space-between;
+    margin-bottom: 8px;
+    font-size: $font-size-large;
+
+    button,
+    select {
+      @include interactive-element;
+    }
+
+    .select-month,
+    .select-year {
+      width: 200px;
+      font-size: $font-size-small;
+    }
+  }
+
+  table {
+    table-layout: fixed;
+    border-collapse: separate;
+    border-spacing: 0;
+    margin: auto;
+    font-size: $font-size-medium;
+    width: 100%;
+
+    th {
+      vertical-align: middle;
+      text-align: center;
+      height: 36px;
+    }
+
+    .day {
+      padding: $day-padding;
+      vertical-align: middle;
+      text-align: center;
+      border: 2px solid transparent;
+      transition: background-color 0.3s;
+
+      &:hover {
+        background-color: $hover-color;
+        color: $text-color;
+      }
+
+      &.selected {
+        border: 2px solid $selected-color;
+      }
+
+      &.today {
+        background-color: $today-color;
+        color: $text-color;
+
+        &:hover {
+          background-color: $today-hover;
+        }
+
+        &.selected {
+          border: 2px solid lightgray;
+        }
+      }
+    }
+  }
+}
+
+.container-weather-calendar {
+  display: flex;
+  width: 100%;
+
+  .weatherCalendar {
+    font-size: $font-size-large;
+  }
+}
+
+.btn-select {
+  font-size: $font-size-large;
+}

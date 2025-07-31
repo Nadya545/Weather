@@ -20,6 +20,11 @@
   cursor: pointer;
   height: 50px;
   margin-bottom: 20px;
+
+  @media (max-width: 495px) {
+    margin-right: auto;
+    margin-left: 60px;
+  }
 }
 
 .button.normal {

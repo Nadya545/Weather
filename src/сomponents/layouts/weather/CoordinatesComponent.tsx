@@ -61,7 +61,9 @@ const CoordinatesComponent: React.FC<CoordinatesProps> = ({ setLocation }) => {
             setCity(event.target.value);
           }}
         ></input>
-        <MyButton disabled={coordinateRequest.loading}>🔍</MyButton>
+        <MyButton disabled={coordinateRequest.loading} size="small">
+          🔍
+        </MyButton>
       </form>
     </>
   );
