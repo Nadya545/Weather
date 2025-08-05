@@ -2,10 +2,17 @@ import React, { useEffect, useRef, useState } from "react";
 import { years } from "../../../constants/constYears";
 import { YearsContainerProps } from "./typeWeather/typeWeather";
 import MyButton from "../../../ui/button/MyButton";
+import { useDispatch, useSelector } from "react-redux";
+import { RootState } from "../../../store";
+import { setSelectedYear, setMonthData } from "../calendar/calendarSlice";
+import { generateMonthData } from "../../../helpers/generateMonthData";
 
-const YearsContainer: React.FC<YearsContainerProps> = ({ onYearChange }) => {
-  const [activeYear, setActiveYear] = useState(new Date().getFullYear());
+const YearsContainer: React.FC<YearsContainerProps> = () => {
+  const dispatch = useDispatch();
   const containerRef = useRef<HTMLDivElement | null>(null);
+  const { selectedYear, selectedMonth } = useSelector(
+    (state: RootState) => state.calendar
+  );
 
   useEffect(() => {
     if (containerRef.current) {
@@ -31,19 +38,26 @@ const YearsContainer: React.FC<YearsContainerProps> = ({ onYearChange }) => {
         });
       }
     }
-  }, [activeYear]);
+  }, [selectedYear]);
 
   function handleYearClick(year: number) {
-    setActiveYear(year);
-    onYearChange(year);
+    dispatch(setSelectedYear(year));
+
+    // Генерируем новые данные месяца при изменении года
+    const monthDates = generateMonthData(year, selectedMonth);
+    const serializedData = monthDates.map((week) =>
+      week.map((date) => (date ? date.toISOString() : null))
+    );
+
+    dispatch(setMonthData(serializedData));
   }
   return (
-    <div className="yearsContainer" ref={containerRef}>
+    <div className="years-сontainer" ref={containerRef}>
       {years.map((year) => (
         <MyButton
           key={year}
-          className={`btn-yearsContainer ${
-            year === activeYear ? "active" : ""
+          className={`btn-years-сontainer ${
+            year === selectedYear ? "active" : ""
           }`}
           value={year}
           onClick={() => handleYearClick(year)}

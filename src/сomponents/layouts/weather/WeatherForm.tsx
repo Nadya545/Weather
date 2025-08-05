@@ -84,16 +84,7 @@ const WeatherForm = () => {
                 setLoading={setLoading}
                 setLocation={setLocation}
               />
-              <Calendar
-                selectedYear={selectedYear}
-                setSelectedYear={setSelectedYear}
-                selectedMonth={selectedMonth}
-                setSelectedMonth={handleMonthChange}
-                setLoading={setLoading}
-                setDate={setDate}
-                monthData={monthData}
-                setMonthData={setMonthData}
-              />
+              <Calendar />
               <MyButton
                 onClick={getWeatherDateCoordinates}
                 disabled={

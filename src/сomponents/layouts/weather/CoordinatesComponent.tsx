@@ -56,6 +56,7 @@ const CoordinatesComponent: React.FC<CoordinatesProps> = ({ setLocation }) => {
         <input
           className="coordinate-input"
           type="text"
+          id="coordinates"
           placeholder="  Введите ваш город..."
           onChange={(event) => {
             setCity(event.target.value);

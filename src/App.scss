@@ -157,8 +157,8 @@ $error-color: darkslategrey;
   }
 }
 
-.yearsContainer {
-  position: sticky;
+.years-сontainer {
+  position: relative;
   top: 0;
   height: 100vh;
   @include flex-column;
@@ -171,9 +171,9 @@ $error-color: darkslategrey;
   height: 100vh;
   overflow-y: auto;
   overflow-x: hidden;
-  scroll-snap-type: y mandatory;
+  scroll-snap-type: none;
   scroll-behavior: smooth;
-  scroll-snap-stop: always;
+  scroll-snap-stop: normal;
   gap: 70px;
 }
 .error-popup {
@@ -209,7 +209,7 @@ $error-color: darkslategrey;
 }
 
 @media (max-width: 604px) {
-  .yearsContainer {
+  .years-сontainer {
     display: none;
   }
   .the_biggest_container,

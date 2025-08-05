@@ -1,77 +1,82 @@
 import React from "react";
 import "./calendar.scss";
-import { useState } from "react";
-import WeatherCalendarNow from "./WeatherCalendarNow";
-import { monthNames } from "../../../constants/constMonthNames";
-import { years } from "../../../constants/constYears";
-import { weekDaysNames } from "../../../constants/constWeekDayName";
-import WeatherCalendar from "./WeatherCalendar";
-import SvgInCalendar from "../../../icons/SvgInCalendar";
 import { generateMonthData } from "../../../helpers/generateMonthData";
-import { CalendarProps } from "./type/type";
-
-const Calendar: React.FC<CalendarProps> = ({
-  selectedYear,
-  monthData,
-  selectedMonth,
-  setDate,
-  setLoading,
+import { useDispatch, useSelector } from "react-redux";
+import {
   setSelectedYear,
-  setMonthData,
   setSelectedMonth,
-}) => {
-  const [data] = useState<{
-    currentConditions?: any;
-    days?: any;
-  }>({});
+  setMonthData,
+  setSelectedDate,
+  prevMonth,
+  nextMonth,
+} from "./calendarSlice";
+import { RootState } from "../../../store";
+import SvgInCalendar from "../../../icons/SvgInCalendar";
+import { years } from "../../../constants/constYears";
+import { monthNames } from "../../../constants/constMonthNames";
+import { weekDaysNames } from "../../../constants/constWeekDayName";
+import WeatherCalendarNow from "./WeatherCalendarNow";
+import WeatherCalendar from "./WeatherCalendar";
+import useRequest from "../../../hooks/useRequest";
 
-  const handleYearChange: React.ChangeEventHandler<HTMLSelectElement> = (
-    event
-  ) => {
-    const newYear = Number(event.target.value);
-    setSelectedYear(newYear);
-    setMonthData(generateMonthData(newYear, selectedMonth));
-  };
+const Calendar: React.FC = () => {
+  const dispatch = useDispatch();
+  const { selectedYear, selectedMonth, monthData, weatherData } = useSelector(
+    (state: RootState) => state.calendar
+  );
 
-  const handleMonthChange: React.ChangeEventHandler<HTMLSelectElement> = (
-    event
-  ) => {
-    const newMonth = Number(event.target.value);
-    setSelectedMonth(newMonth);
-    setMonthData(generateMonthData(selectedYear, newMonth));
-  };
-  function handlePrevMonth() {
-    const newMonth = selectedMonth === 1 ? 12 : selectedMonth - 1;
-    const newYear = selectedMonth === 1 ? selectedYear - 1 : selectedYear;
+  const { makeRequest } = useRequest();
 
-    setSelectedMonth(newMonth);
-    setSelectedYear(newYear);
-    setMonthData(generateMonthData(newYear, newMonth));
-  }
-
-  function handleNextMonth() {
-    const newMonth = selectedMonth === 12 ? 1 : selectedMonth + 1;
-    const newYear = selectedMonth === 12 ? selectedYear + 1 : selectedYear;
-
-    setSelectedMonth(newMonth);
-    setSelectedYear(newYear);
-    setMonthData(generateMonthData(newYear, newMonth));
-  }
-
-  async function handleWeatherCalendarClick(date: Date) {
-    setLoading(true);
-
-    const weatherDay = new Date(
-      Date.UTC(date.getFullYear(), date.getMonth(), date.getDate()) // создаю обьект дата с учетом часового пояса и времени
+  React.useEffect(() => {
+    const monthDates = generateMonthData(selectedYear, selectedMonth);
+    const serializedData = monthDates.map((week) =>
+      week.map((date) => (date ? date.toISOString() : null))
     );
+    dispatch(setMonthData(serializedData));
+  }, [selectedYear, selectedMonth, dispatch]);
 
-    setTimeout(() => {
-      setDate(weatherDay);
-      console.log(weatherDay);
-      setLoading(false);
-    }, 2000);
-  } // просто запоминаю дату в календаре при нажатии на число и передаю в стейт c помощью setDate
+  const handleYearChange = (event: React.ChangeEvent<HTMLSelectElement>) => {
+    const newYear = Number(event.target.value);
+    dispatch(setSelectedYear(newYear));
+  };
 
+  const handleMonthChange = (event: React.ChangeEvent<HTMLSelectElement>) => {
+    const newMonth = Number(event.target.value);
+    dispatch(setSelectedMonth(newMonth));
+  };
+
+  const handlePrevMonth = () => {
+    dispatch(prevMonth());
+  };
+
+  const handleNextMonth = () => {
+    dispatch(nextMonth());
+  };
+
+  React.useEffect(() => {
+    const monthDates = generateMonthData(selectedYear, selectedMonth);
+    const serializedData = monthDates.map((week) =>
+      week.map((date) => (date ? date.toISOString() : null))
+    );
+    dispatch(setMonthData(serializedData));
+  }, [selectedYear, selectedMonth, dispatch]);
+
+  const handleWeatherCalendarClick = async (dateString: string) => {
+    // Используем makeRequest для автоматического управления лоадером
+    await makeRequest(async () => {
+      const date = new Date(dateString);
+      const weatherDay = new Date(
+        Date.UTC(date.getFullYear(), date.getMonth(), date.getDate())
+      );
+
+      await new Promise((resolve) => setTimeout(resolve, 2000));
+
+      dispatch(setSelectedDate(weatherDay.toISOString()));
+
+      // Возвращаю любые данные (можно заменить на реальный API-ответ)
+      return { success: true };
+    });
+  };
   return (
     <>
       <div className="container-weather-calendar">
@@ -126,19 +131,19 @@ const Calendar: React.FC<CalendarProps> = ({
               </tr>
             </thead>
             <tbody>
-              {monthData.map((week, index) => (
-                <tr key={index} className="week">
-                  {week.map((date, index) =>
-                    date ? (
+              {monthData.map((week, weekIndex) => (
+                <tr key={weekIndex} className="week">
+                  {week.map((dateString, dayIndex) =>
+                    dateString ? (
                       <td
-                        key={index}
+                        key={dayIndex}
                         className="day"
-                        onClick={() => handleWeatherCalendarClick(date)}
+                        onClick={() => handleWeatherCalendarClick(dateString)}
                       >
-                        {date.getDate()}
+                        {new Date(dateString).getDate()}
                       </td>
                     ) : (
-                      <td key={index}></td>
+                      <td key={dayIndex}></td>
                     )
                   )}
                 </tr>
@@ -147,11 +152,13 @@ const Calendar: React.FC<CalendarProps> = ({
           </table>
         </div>
         <div className="weather-calendar-info">
-          {data.currentConditions ? <WeatherCalendarNow data={data} /> : null}
+          {weatherData.currentConditions ? (
+            <WeatherCalendarNow data={weatherData} />
+          ) : null}
         </div>
         <div className="weather-calendar-info">
-          {!data.currentConditions && data.days ? (
-            <WeatherCalendar data={data} />
+          {!weatherData.currentConditions && weatherData.days ? (
+            <WeatherCalendar data={weatherData} />
           ) : null}
         </div>
       </div>
