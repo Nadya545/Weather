@@ -1,0 +1,62 @@
+.button {
+  // Общие стили для всех кнопок
+  cursor: pointer;
+  border: none;
+  background-color: transparent;
+  text-align: center;
+  transition: all 0.3s ease;
+  flex-shrink: 0;
+
+  &.small {
+    position: absolute;
+    right: 10px;
+    color: white;
+    font-size: 20px;
+    height: 35px;
+    bottom: 3px;
+  }
+
+  &.normal {
+    font-size: 20px;
+    color: white;
+    padding: 8px 16px;
+    border-radius: 4px;
+    width: 100%;
+    min-width: 80px;
+    transition: all 0.3s ease;
+    background-color: transparent; // Прозрачный фон по умолчанию
+
+    &.active,
+    &[data-active="true"] {
+      background-color: #007bff !important;
+      color: white !important;
+      font-weight: bold;
+      box-shadow: 0 0 10px rgba(0, 123, 255, 0.5);
+
+      // Для гарантии переопределения hover
+      &:hover {
+        background-color: #007bff !important;
+        transform: none;
+      }
+    }
+
+    &:hover:not(.active):not([data-active="true"]) {
+      background-color: rgb(51, 51, 171);
+      transform: scale(1.05);
+    }
+  }
+
+  &.big {
+    width: 200px;
+    padding: 15px 17px; // Исправлена ошибка (была запятая)
+    color: white;
+    font-size: 20px;
+    border: 2px solid white;
+    height: 50px;
+    margin-bottom: 20px;
+
+    @media (max-width: 495px) {
+      margin: 0 auto 0 60px;
+    }
+  }
+}

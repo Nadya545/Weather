@@ -1,6 +1,6 @@
 import React, { useState } from "react";
 import { fetchСoordinates } from "../../../api/apiWeather";
-import MyButton from "../../../ui/button/MyButton";
+import Button from "../../../ui/button/Button";
 import { CoordinatesProps } from "./typeWeather/typeWeather";
 import useRequest from "../../../hooks/useRequest";
 
@@ -62,9 +62,9 @@ const CoordinatesComponent: React.FC<CoordinatesProps> = ({ setLocation }) => {
             setCity(event.target.value);
           }}
         ></input>
-        <MyButton disabled={coordinateRequest.loading} size="small">
+        <Button disabled={coordinateRequest.loading} size="small">
           🔍
-        </MyButton>
+        </Button>
       </form>
     </>
   );

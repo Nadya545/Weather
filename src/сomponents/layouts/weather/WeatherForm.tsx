@@ -11,7 +11,7 @@ import { generateMonthData } from "../../../helpers/generateMonthData";
 import { initialWeatherParams } from "../../../constants/constDiffrent";
 import useRequest from "../../../hooks/useRequest"; // Импортируем наш хук
 import { WeatherData, Coordinates } from "./typeWeather/typeWeather";
-import MyButton from "../../../ui/button/MyButton";
+import MyButton from "../../../ui/button/Button";
 
 const WeatherForm = () => {
   const [weatherParams, setWeatherParams] = useState(initialWeatherParams);

@@ -1,70 +1,63 @@
 import React, { useEffect, useRef, useState } from "react";
 import { years } from "../../../constants/constYears";
 import { YearsContainerProps } from "./typeWeather/typeWeather";
-import MyButton from "../../../ui/button/MyButton";
+import Button from "../../../ui/button/Button";
 import { useDispatch, useSelector } from "react-redux";
-import { RootState } from "../../../store";
-import { setSelectedYear, setMonthData } from "../calendar/calendarSlice";
-import { generateMonthData } from "../../../helpers/generateMonthData";
+import { RootState } from "../../../store/store";
+import { setSelectedYear } from "../../../store/slices/calendarSlice";
+import useRequest from "../../../hooks/useRequest";
 
 const YearsContainer: React.FC<YearsContainerProps> = () => {
   const dispatch = useDispatch();
   const containerRef = useRef<HTMLDivElement | null>(null);
-  const { selectedYear, selectedMonth } = useSelector(
-    (state: RootState) => state.calendar
-  );
-
+  const { selectedYear } = useSelector((state: RootState) => state.calendar);
+  const {
+    setLoading,
+    state: { loading },
+  } = useRequest();
   useEffect(() => {
-    if (containerRef.current) {
-      const container = containerRef.current;
-      const activeBtn = container.querySelector(".btn-yearsContainer.active");
-      if (activeBtn) {
-        // Получаем позиции элементов для ручного расчета скролла
+    const container = containerRef.current;
+    if (!container || !selectedYear === undefined) return;
 
-        const containerRect = container.getBoundingClientRect();
-        const btnRect = activeBtn.getBoundingClientRect();
+    const activeBtn = container.querySelector(`[data-year="${selectedYear}"]`);
+    if (!activeBtn) return;
 
-        // Вычисляем позицию для скролла
-        const scrollPosition =
-          btnRect.top -
-          containerRect.top -
-          containerRect.height / 2 +
-          btnRect.height / 2;
+    requestAnimationFrame(() => {
+      const containerHeight = container.clientHeight;
+      const btnHeight = activeBtn.clientHeight;
+      const btnOffsetTop = (activeBtn as HTMLElement).offsetTop;
 
-        // Применяем плавный скролл
-        container.scrollTo({
-          top: scrollPosition,
-          behavior: "smooth",
-        });
-      }
-    }
+      const scrollPosition = btnOffsetTop - containerHeight / 2 + btnHeight / 2;
+
+      container.scrollTo({
+        top: scrollPosition,
+        behavior: "smooth",
+      });
+    });
   }, [selectedYear]);
 
-  function handleYearClick(year: number) {
-    dispatch(setSelectedYear(year));
-
-    // Генерируем новые данные месяца при изменении года
-    const monthDates = generateMonthData(year, selectedMonth);
-    const serializedData = monthDates.map((week) =>
-      week.map((date) => (date ? date.toISOString() : null))
-    );
-
-    dispatch(setMonthData(serializedData));
+  async function handleYearClick(year: number) {
+    setLoading(true);
+    try {
+      dispatch(setSelectedYear(year));
+      await new Promise((resolve) => setTimeout(resolve, 500));
+    } finally {
+      setLoading(false);
+    }
   }
   return (
-    <div className="years-сontainer" ref={containerRef}>
+    <div className="years-container" ref={containerRef}>
       {years.map((year) => (
-        <MyButton
+        <Button
           key={year}
-          className={`btn-years-сontainer ${
-            year === selectedYear ? "active" : ""
-          }`}
-          value={year}
-          onClick={() => handleYearClick(year)}
           size="normal"
+          data-year={year}
+          active={year === selectedYear}
+          disabled={loading}
+          onClick={() => handleYearClick(year)}
         >
           {year}
-        </MyButton>
+        </Button>
       ))}
     </div>
   );

@@ -9,8 +9,8 @@ import {
   setSelectedDate,
   prevMonth,
   nextMonth,
-} from "./calendarSlice";
-import { RootState } from "../../../store";
+} from "../../../store/slices/calendarSlice";
+import { RootState } from "../../../store/store";
 import SvgInCalendar from "../../../icons/SvgInCalendar";
 import { years } from "../../../constants/constYears";
 import { monthNames } from "../../../constants/constMonthNames";
@@ -52,14 +52,6 @@ const Calendar: React.FC = () => {
   const handleNextMonth = () => {
     dispatch(nextMonth());
   };
-
-  React.useEffect(() => {
-    const monthDates = generateMonthData(selectedYear, selectedMonth);
-    const serializedData = monthDates.map((week) =>
-      week.map((date) => (date ? date.toISOString() : null))
-    );
-    dispatch(setMonthData(serializedData));
-  }, [selectedYear, selectedMonth, dispatch]);
 
   const handleWeatherCalendarClick = async (dateString: string) => {
     // Используем makeRequest для автоматического управления лоадером

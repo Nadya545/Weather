@@ -1,5 +1,5 @@
 import { createSlice, PayloadAction } from "@reduxjs/toolkit";
-import { generateMonthData } from "../../../helpers/generateMonthData";
+import { generateMonthData } from "../../helpers/generateMonthData";
 
 interface CalendarState {
   selectedYear: number;

@@ -1,22 +1,4 @@
-$white-text-color: white;
-$coordinate-input-playsholder-color: rgba(48, 99, 144, 0.6);
-$nameCity-and-date-color: rgba(8, 81, 145);
-$background-yearsContainer: rgba(144, 48, 114, 0.5);
-$background-error-modal: rgba(0, 0, 0, 0.5);
-$background-error-content: #f8d7da;
-$border-error-content: #f5c6cb;
-$error-color: darkslategrey;
-
-@mixin flex-column {
-  display: flex;
-  flex-direction: column;
-}
-
-@mixin flex-center {
-  display: flex;
-  justify-content: center;
-  align-items: center;
-}
+@import "./main";
 
 * {
   margin: 0px;
@@ -153,11 +135,21 @@ $error-color: darkslategrey;
       font-size: 15px;
       font-family: "Trebuchet MS", "Lucida Sans Unicode", "Lucida Grande",
         "Lucida Sans", Arial, sans-serif;
+      opacity: 1; // Важно: некоторые браузеры используют opacity
+      background: transparent !important; // Явно убираем фон
+    }
+    &:-ms-input-placeholder {
+      color: $coordinate-input-playsholder-color;
+      background: transparent;
+    }
+    &::-ms-input-placeholder {
+      color: $coordinate-input-playsholder-color;
+      background: transparent;
     }
   }
 }
 
-.years-сontainer {
+.years-container {
   position: relative;
   top: 0;
   height: 100vh;
@@ -176,6 +168,7 @@ $error-color: darkslategrey;
   scroll-snap-stop: normal;
   gap: 70px;
 }
+
 .error-popup {
   position: fixed;
   top: 0;
