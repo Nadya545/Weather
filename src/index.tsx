@@ -7,7 +7,7 @@ import App from "./App";
 import WeatherForm from "./сomponents/layouts/weather/WeatherForm";
 import { store } from "./store/store";
 import { Provider } from "react-redux";
-
+import ProtectedRoute from "./routes/ProtectedRoute";
 const router = createBrowserRouter([
   {
     path: "/",
@@ -20,7 +20,11 @@ const router = createBrowserRouter([
       },
       {
         path: "weather",
-        element: <WeatherForm />,
+        element: (
+          <ProtectedRoute>
+            <WeatherForm />
+          </ProtectedRoute>
+        ),
       },
     ],
   },

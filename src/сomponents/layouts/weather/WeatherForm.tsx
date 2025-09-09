@@ -12,6 +12,7 @@ import { initialWeatherParams } from "../../../constants/constDiffrent";
 import useRequest from "../../../hooks/useRequest"; // Импортируем наш хук
 import { WeatherData, Coordinates } from "./typeWeather/typeWeather";
 import MyButton from "../../../ui/button/Button";
+import LogoutButton from "../../../routes/LogooutButton";
 
 const WeatherForm = () => {
   const [weatherParams, setWeatherParams] = useState(initialWeatherParams);
@@ -65,6 +66,10 @@ const WeatherForm = () => {
 
       <div className="wrapper">
         <div className="bigContainer">
+          <div className="logoOutButton">
+            <LogoutButton />
+          </div>
+
           <div className="weather-header-container">
             <HeaderInfoWeather weatherParams={weatherParams} />
             <div className="weather-right-form">

@@ -6,7 +6,7 @@ const Auth = () => {
   const navigate = useNavigate();
 
   const handleLogin = () => {
-    sessionStorage.setItem("isAuthenticated", "true");
+    localStorage.setItem("isAuthenticated", "true");
     navigate("/weather");
   };
 
