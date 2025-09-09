@@ -3,11 +3,10 @@ import React from "react";
 import { useState, useEffect } from "react";
 import { loaderEventEmitter } from "./utils/eventEmitter";
 import Loader from "./ui/loader/Loader";
-import { Outlet, useLocation } from "react-router-dom";
+import { Outlet } from "react-router-dom";
 
 function App() {
   const [isLoading, setIsLoading] = useState(false);
-  const location = useLocation();
 
   useEffect(() => {
     const unsubscribe = loaderEventEmitter.subscribe((loading) => {
