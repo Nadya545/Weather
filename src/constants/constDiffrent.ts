@@ -1,4 +1,4 @@
-import { InitialWeatherParams } from "../сomponents/layouts/weather/typeWeather/typeWeather";
+import { InitialWeatherParams } from "../components/layouts/weather/typeWeather/typeWeather";
 
 export const iconSet: string = "icons1";
 

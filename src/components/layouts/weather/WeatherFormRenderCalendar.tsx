@@ -1,9 +1,5 @@
-import React, { JSX } from "react";
-import PartlyCloudIcon from "../../../icons/PartlyCloudIcon";
-import CloudyIcon from "../../../icons/CloudyIcon";
-import ClearIcon from "../../../icons/ClearIcon";
-import RainIcon from "../../../icons/RainIcon";
-import { WeatherData, RenderWeatherProps } from "./typeWeather/typeWeather";
+import React from "react";
+import { RenderWeatherProps } from "./typeWeather/typeWeather";
 import { weatherIconsKey } from "./typeWeather/typeWeather";
 import { weatherIcons } from "../calendar/const/const";
 

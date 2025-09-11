@@ -2,41 +2,24 @@ import * as React from "react";
 import { Suspense } from "react";
 import * as ReactDOM from "react-dom/client";
 import { createBrowserRouter, RouterProvider } from "react-router-dom";
-import Auth from "./routes/Auth";
-import App from "./App";
-import WeatherForm from "./сomponents/layouts/weather/WeatherForm";
 import { store } from "./store/store";
 import { Provider } from "react-redux";
-import ProtectedRoute from "./routes/ProtectedRoute";
-const router = createBrowserRouter([
-  {
-    path: "/",
-    element: <App />,
-    errorElement: <div>Ошибка загрузки</div>,
-    children: [
-      {
-        index: true,
-        element: <Auth />,
-      },
-      {
-        path: "weather",
-        element: (
-          <ProtectedRoute>
-            <WeatherForm />
-          </ProtectedRoute>
-        ),
-      },
-    ],
-  },
-]);
+import { RouterConfig } from "./routes/RouterConfig";
+import Loader from "./ui/loader/Loader";
+
+const router = createBrowserRouter(RouterConfig);
+
 const rootElement = document.getElementById("root");
 if (!rootElement) throw new Error("Root element not found");
+
 ReactDOM.createRoot(rootElement).render(
-  <React.StrictMode>
-    <Suspense fallback={<div>Loading...</div>}>
-      <Provider store={store}>
-        <RouterProvider router={router} />
-      </Provider>
-    </Suspense>
-  </React.StrictMode>
+  /*<React.StrictMode>
+    <Suspense fallback={<Loader />}>*/
+
+  <Provider store={store}>
+    <RouterProvider router={router} />
+  </Provider>
+
+  /* </Suspense>
+  </React.StrictMode>*/
 );

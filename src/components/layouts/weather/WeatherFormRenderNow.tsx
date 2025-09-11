@@ -1,5 +1,5 @@
-import React, { JSX } from "react";
-import { WeatherData, RenderWeatherProps } from "./typeWeather/typeWeather";
+import React from "react";
+import { RenderWeatherProps } from "./typeWeather/typeWeather";
 import { weatherIconsKey } from "./typeWeather/typeWeather";
 import { weatherIcons } from "../calendar/const/const";
 

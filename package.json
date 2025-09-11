@@ -1,4 +1,5 @@
 {
+  "$schema": "./node_modules/react-scripts/package.json",
   "name": "apple",
   "version": "0.1.0",
   "private": true,
@@ -24,6 +25,7 @@
   "devDependencies": {
     "@types/react": "^19.1.8",
     "@types/react-dom": "^19.1.6",
+    "react-app-rewired": "^2.2.1",
     "react-scripts": "^5.0.1",
     "sass": "^1.89.2",
     "sass-loader": "^16.0.5",

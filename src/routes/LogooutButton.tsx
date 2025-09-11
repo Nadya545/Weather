@@ -7,7 +7,7 @@ const LogoutButton: React.FC = () => {
 
   const handleLogout = () => {
     localStorage.removeItem("isAuthenticated");
-    navigate("/");
+    navigate("/", { replace: true });
   };
 
   return (

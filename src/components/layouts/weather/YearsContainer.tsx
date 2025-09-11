@@ -1,4 +1,4 @@
-import React, { useEffect, useRef, useState } from "react";
+import React, { useEffect, useRef } from "react";
 import { years } from "../../../constants/constYears";
 import { YearsContainerProps } from "./typeWeather/typeWeather";
 import Button from "../../../ui/button/Button";

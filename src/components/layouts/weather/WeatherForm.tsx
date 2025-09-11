@@ -1,4 +1,4 @@
-import React, { useState } from "react";
+import React, { useEffect, useState } from "react";
 import Calendar from "../calendar/Calendar";
 import CoordinatesComponent from "./CoordinatesComponent";
 import { fetchWeatherDataCalendar } from "../../../api/apiWeather";
@@ -13,6 +13,7 @@ import useRequest from "../../../hooks/useRequest"; // Импортируем н
 import { WeatherData, Coordinates } from "./typeWeather/typeWeather";
 import MyButton from "../../../ui/button/Button";
 import LogoutButton from "../../../routes/LogooutButton";
+import { useNavigate } from "react-router-dom";
 
 const WeatherForm = () => {
   const [weatherParams, setWeatherParams] = useState(initialWeatherParams);
@@ -27,19 +28,19 @@ const WeatherForm = () => {
   const [selectedMonth, setSelectedMonth] = useState(new Date().getMonth() + 1);
 
   function setLocation(coordinates: Coordinates) {
-    setWeatherParams((prev) => ({
+    setWeatherParams((prev: any) => ({
       ...prev,
       coordinates: coordinates,
       name: coordinates.name,
     }));
   }
 
-  function setDate(date: Date) {
-    setWeatherParams((prev) => ({
+  /*function setDate(date: Date) {
+    setWeatherParams((prev: any) => ({
       ...prev,
       date: date,
     }));
-  }
+  }*/
 
   const getWeatherDateCoordinates = async () => {
     await makeRequest(() => fetchWeatherDataCalendar(weatherParams));
@@ -54,9 +55,9 @@ const WeatherForm = () => {
     setMonthData(generateMonthData(newYear, selectedMonth));
   };
 
-  const handleMonthChange = (newMonth: number) => {
+  /*const handleMonthChange = (newMonth: number) => {
     setSelectedMonth(newMonth);
-  };
+  };*/
 
   return (
     <>

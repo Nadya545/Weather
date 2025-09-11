@@ -6,19 +6,13 @@ const Auth = () => {
   const navigate = useNavigate();
 
   const handleLogin = () => {
+    console.log("🔑 Login button clicked");
     localStorage.setItem("isAuthenticated", "true");
     navigate("/weather");
   };
 
   return (
-    <div
-      style={{
-        display: "flex",
-        justifyContent: "center",
-        alignItems: "center",
-        height: "100vh",
-      }}
-    >
+    <div className="buttonLogin">
       <Button size="big" onClick={handleLogin}>
         Вход
       </Button>
