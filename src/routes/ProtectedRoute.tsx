@@ -1,19 +1,16 @@
-import React, { ReactElement, useEffect } from "react";
+import React from "react";
 import { Navigate } from "react-router-dom";
 
 interface ProtectedRouteProps {
-  children: ReactElement;
+  children: React.ReactNode;
 }
 
 const ProtectedRoute: React.FC<ProtectedRouteProps> = ({ children }) => {
   const isAuthenticated = localStorage.getItem("isAuthenticated") === "true";
-
-  if (!isAuthenticated) {
-    console.log("🔒 Redirecting to /");
-    return <Navigate to="/" replace />;
+  if (isAuthenticated) {
+    return <>{children}</>;
   }
-
-  return <>{children}</>;
+  return <Navigate to="/authorisation" replace />;
 };
 
 export default ProtectedRoute;

@@ -1,6 +1,6 @@
 import React, { useEffect, useRef } from "react";
-import { years } from "../../../constants/constYears";
-import { YearsContainerProps } from "./typeWeather/typeWeather";
+import { years } from "../../../constants/years";
+import { YearsContainerProps } from "./typeWeather/weather";
 import Button from "../../../ui/button/Button";
 import { useDispatch, useSelector } from "react-redux";
 import { RootState } from "../../../store/store";

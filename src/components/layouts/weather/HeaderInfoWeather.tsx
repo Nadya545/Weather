@@ -1,7 +1,7 @@
 import React from "react";
 import { RootState } from "../../../store/store";
 import { useSelector } from "react-redux";
-import { weatherParamsProps } from "./typeWeather/typeWeather";
+import { weatherParamsProps } from "./typeWeather/weather";
 
 const HeaderInfoWeather: React.FC<weatherParamsProps> = ({ weatherParams }) => {
   const { selectedDate } = useSelector((state: RootState) => state.calendar);

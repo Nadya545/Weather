@@ -1,7 +1,7 @@
-export function generateMonthData(
+export const generateMonthData = (
   year: number,
   month: number
-): (Date | null)[][] {
+): (Date | null)[][] => {
   const daysInMonth = new Date(year, month, 0).getDate(); // рассчитываю правильное кол-во дней в каждом месяце и году
   const monthData = [];
   let week = [];
@@ -27,4 +27,4 @@ export function generateMonthData(
   if (week.length > 0) monthData.push(week);
 
   return monthData;
-}
+};

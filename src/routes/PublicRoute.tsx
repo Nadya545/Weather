@@ -1,15 +1,14 @@
-import React, { ReactElement } from "react";
+import React from "react";
 import { Navigate } from "react-router-dom";
 
 interface PublicRouteProps {
-  children: ReactElement;
+  children: React.ReactNode;
 }
 
 const PublicRoute: React.FC<PublicRouteProps> = ({ children }) => {
   const isAuthenticated = localStorage.getItem("isAuthenticated") === "true";
-
-  if (isAuthenticated) {
-    console.log("🔓 Redirecting to /weather");
+  const currentUser = localStorage.getItem("currentUser");
+  if (isAuthenticated && currentUser) {
     return <Navigate to="/weather" replace />;
   }
 

@@ -1,18 +1,18 @@
-import React, { useEffect, useState } from "react";
+import React, { useState } from "react";
 import Calendar from "../calendar/Calendar";
 import CoordinatesComponent from "./CoordinatesComponent";
-import { fetchWeatherDataCalendar } from "../../../api/apiWeather";
+import { fetchWeatherDataCalendar } from "../../../api/weather";
 import WeatherFormRenderNow from "./WeatherFormRenderNow";
 import WeatherFormRenderCalendar from "./WeatherFormRenderCalendar";
 import HeaderInfoWeather from "./HeaderInfoWeather";
 import YearsContainer from "./YearsContainer";
 import { initialDate } from "../calendar/const/const";
 import { generateMonthData } from "../../../helpers/generateMonthData";
-import { initialWeatherParams } from "../../../constants/constDiffrent";
+import { initialWeatherParams } from "../../../constants/diffrent";
 import useRequest from "../../../hooks/useRequest"; // Импортируем наш хук
-import { WeatherData, Coordinates } from "./typeWeather/typeWeather";
+import { WeatherData, Coordinates } from "./typeWeather/weather";
 import MyButton from "../../../ui/button/Button";
-import LogoutButton from "../../../routes/LogooutButton";
+import LogoutButton from "../../../routes/LogOutButton";
 import { useNavigate } from "react-router-dom";
 
 const WeatherForm = () => {

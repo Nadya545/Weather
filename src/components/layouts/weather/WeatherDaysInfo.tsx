@@ -1,5 +1,5 @@
 import React from "react";
-import { WeatherDaysInfoProps } from "./typeWeather/typeWeather";
+import { WeatherDaysInfoProps } from "./typeWeather/weather";
 const WeatherDaysInfo: React.FC<WeatherDaysInfoProps> = ({
   weatherWeek = [],
 }) => {

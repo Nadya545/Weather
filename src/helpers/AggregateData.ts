@@ -15,7 +15,7 @@ interface WeatherData {
   list: WeatherForecast[]; // Массив прогнозов
 }
 
-export function aggregatWeatherData(weatherForecasts: WeatherData) {
+export const aggregatWeatherData = (weatherForecasts: WeatherData) => {
   const dailyForecasts: {
     [key: string]: {
       temp: number;
@@ -49,4 +49,4 @@ export function aggregatWeatherData(weatherForecasts: WeatherData) {
     pressure: dailyForecasts[date].pressure,
   }));
   return aggregatedData;
-}
+};

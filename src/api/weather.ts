@@ -1,7 +1,7 @@
-import { urlWeatherData, urlWeatherDataWeek } from "../constants/constUrl";
+import { urlWeatherData, urlWeatherDataWeek } from "../constants/url";
 import axios from "axios";
-import { apiKey2 } from "../constants/constApiKey";
-import { iconSet } from "../constants/constDiffrent";
+import { apiKey2 } from "../constants/apiKey";
+import { iconSet } from "../constants/diffrent";
 export interface weatherParams {
   date: Date;
   coordinates: {
@@ -11,16 +11,16 @@ export interface weatherParams {
   };
 }
 
-export async function fetchWeatherData() {
+export const fetchWeatherData = async () => {
   try {
     const response = await axios.get(urlWeatherData);
     return response.data;
   } catch (err) {
     console.error("Ошибка при получении данных о погоде:", err);
   }
-}
+};
 
-export async function fetchWeatherDataWeek() {
+export const fetchWeatherDataWeek = async () => {
   try {
     const response = await axios.get(urlWeatherDataWeek);
     return response.data;
@@ -28,29 +28,31 @@ export async function fetchWeatherDataWeek() {
     console.error("Ошибка при получении данных о погоде:", err);
     return null;
   }
-}
+};
 
-export function buildWeatherUrl(weatherParams: weatherParams) {
+export const buildWeatherUrl = async (weatherParams: weatherParams) => {
   const location = `${weatherParams.coordinates.lat},${weatherParams.coordinates.lon}`;
   const formattedDate = weatherParams.date.toISOString().split("T")[0];
   return `https://weather.visualcrossing.com/VisualCrossingWebServices/rest/services/timeline/${location}/${formattedDate}?key=${apiKey2}&iconSet=${iconSet}&unitGroup=metric&lang=ru`;
-}
+};
 
-export async function fetchWeatherDataCalendar(weatherParams: weatherParams) {
+export const fetchWeatherDataCalendar = async (
+  weatherParams: weatherParams
+) => {
   console.log("Широта:", weatherParams.coordinates.lat);
   console.log("Долгота:", weatherParams.coordinates.lon);
   const urlWeatherDataCalendar = buildWeatherUrl(weatherParams);
   console.log("URL для запроса:", urlWeatherDataCalendar); // Логирование URL
   try {
-    const response = await axios.get(urlWeatherDataCalendar);
+    const response = await axios.get(await urlWeatherDataCalendar);
     return response.data;
   } catch (err) {
     console.error("Ошибка при получении данных о погоде:", err);
     return null;
   }
-}
+};
 
-export async function fetchСoordinates(city: string) {
+export const fetchСoordinates = async (city: string) => {
   const urlCoordinate = `https://nominatim.openstreetmap.org/search?q=${city}&format=json`;
   try {
     const coordinates = await axios.get(urlCoordinate);
@@ -59,4 +61,4 @@ export async function fetchСoordinates(city: string) {
     console.error("Ошибка при получении данных о погоде:", err);
     return null;
   }
-}
+};

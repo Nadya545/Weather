@@ -12,9 +12,9 @@ import {
 } from "../../../store/slices/calendarSlice";
 import { RootState } from "../../../store/store";
 import SvgInCalendar from "../../../icons/SvgInCalendar";
-import { years } from "../../../constants/constYears";
-import { monthNames } from "../../../constants/constMonthNames";
-import { weekDaysNames } from "../../../constants/constWeekDayName";
+import { years } from "../../../constants/years";
+import { monthNames } from "../../../constants/monthNames";
+import { weekDaysNames } from "../../../constants/weekDayName";
 import WeatherCalendarNow from "./WeatherCalendarNow";
 import WeatherCalendar from "./WeatherCalendar";
 import useRequest from "../../../hooks/useRequest";

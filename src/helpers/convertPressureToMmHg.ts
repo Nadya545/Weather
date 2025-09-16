@@ -1,6 +1,6 @@
-export function convertPressureToMmHg(pressure: number) {
+export const convertPressureToMmHg = (pressure: number) => {
   return (pressure * 0.750062).toFixed(2);
-}
+};
 
 /*export function formattedDate(date) {
   if (!(date instanceof Date)) {

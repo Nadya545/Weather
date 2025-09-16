@@ -1,5 +1,5 @@
 import React from "react";
-import classes from "./Button.module.scss";
+import "./Button.scss";
 
 interface ButtonProps extends React.ButtonHTMLAttributes<HTMLButtonElement> {
   children: React.ReactNode;
@@ -7,11 +7,11 @@ interface ButtonProps extends React.ButtonHTMLAttributes<HTMLButtonElement> {
   active?: boolean;
 }
 
-const sizeClassMap = {
+/*const sizeClassMap = {
   small: classes.small,
   normal: classes.normal,
   big: classes.big,
-};
+};*/
 const Button: React.FC<ButtonProps> = ({
   children,
   size = "small",
@@ -19,9 +19,14 @@ const Button: React.FC<ButtonProps> = ({
   className = "",
   ...props
 }) => {
-  const buttonClasses = `${classes.button} ${sizeClassMap[size]} ${
-    active ? classes.active : ""
-  } ${className}`.trim();
+  const buttonClasses = [
+    "button",
+    `button--${size}`,
+    active ? "button--active" : "",
+    className,
+  ]
+    .filter(Boolean)
+    .join(" ");
 
   return (
     <button {...props} className={buttonClasses}>

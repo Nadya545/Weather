@@ -7,7 +7,7 @@
   transition: all 0.3s ease;
   flex-shrink: 0;
 
-  &.small {
+  &--small {
     position: absolute;
     right: 10px;
     color: white;
@@ -16,7 +16,7 @@
     bottom: 3px;
   }
 
-  &.normal {
+  &--normal {
     font-size: 20px;
     color: white;
     padding: 8px 16px;
@@ -26,7 +26,7 @@
     transition: all 0.3s ease;
     background-color: transparent; // Прозрачный фон по умолчанию
 
-    &.active,
+    &.button--active,
     &[data-active="true"] {
       background-color: #007bff !important;
       color: white !important;
@@ -40,13 +40,13 @@
       }
     }
 
-    &:hover:not(.active):not([data-active="true"]) {
+    &:hover:not(.button--active):not([data-active="true"]) {
       background-color: rgb(51, 51, 171);
       transform: scale(1.05);
     }
   }
 
-  &.big {
+  &--big {
     width: 200px;
     padding: 15px 17px; // Исправлена ошибка (была запятая)
     color: white;

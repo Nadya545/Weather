@@ -5,7 +5,7 @@ import { loaderEventEmitter } from "./utils/eventEmitter";
 import Loader from "./ui/loader/Loader";
 import { Outlet } from "react-router-dom";
 
-function App() {
+const App = () => {
   const [isLoading, setIsLoading] = useState(false);
 
   useEffect(() => {
@@ -27,6 +27,6 @@ function App() {
       </div>
     </>
   );
-}
+};
 
 export default App;

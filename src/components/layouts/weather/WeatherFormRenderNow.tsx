@@ -1,6 +1,6 @@
 import React from "react";
-import { RenderWeatherProps } from "./typeWeather/typeWeather";
-import { weatherIconsKey } from "./typeWeather/typeWeather";
+import { RenderWeatherProps } from "./typeWeather/weather";
+import { weatherIconsKey } from "./typeWeather/weather";
 import { weatherIcons } from "../calendar/const/const";
 
 const WeatherFormRenderNow: React.FC<RenderWeatherProps> = ({
