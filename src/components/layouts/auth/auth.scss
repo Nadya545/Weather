@@ -3,39 +3,108 @@
   justify-content: center;
   align-items: center;
   min-height: 100vh;
-  background: #f5f5f5;
+  width: 100%;
+  background: linear-gradient(to left, rgb(228, 105, 144), rgb(183, 40, 128));
+  background-attachment: fixed;
 
-  .auth-form {
-    background: white;
-    padding: 2rem;
-    border-radius: 8px;
-    box-shadow: 0 2px 10px rgba(0, 0, 0, 0.1);
-    width: 300px;
+  .auth-wrapper {
+    display: flex;
+    width: 90%;
+    align-items: center;
+    justify-content: center;
+    height: 50%;
 
-    .form-group {
-      margin-bottom: 1rem;
+    .auth-picture {
+      width: 40%;
+      background-image: url(https://i.ytimg.com/vi/xFdbep9DmN0/maxresdefault.jpg);
+      background-size: cover;
+      height: 100%;
+      border-radius: 8px 0 0 8px;
 
-      .input-auth {
-        width: 100%;
-        padding: 0.5rem;
-        border: 1px solid #ddd;
-        border-radius: 4px;
-      }
-
-      .error-massage {
-        color: red;
-        font-size: 0.8rem;
-        display: block;
-      }
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      font-family: "Trebuchet MS", "Lucida Sans Unicode", "Lucida Grande",
+        "Lucida Sans", Arial, sans-serif;
+      font-size: 17px;
+      letter-spacing: 5px;
     }
-    .but-auth {
-      color: black !important;
-      border: 1px solid black !important;
-    }
-    .auth-link {
-      text-align: center;
-      margin-top: 1rem;
+
+    .auth-form {
+      background: white;
+      padding: 2rem;
+      border-radius: 0 8px 8px 0;
+      box-shadow: 0 2px 10px rgba(0, 0, 0, 0.1);
+      width: 40%;
+      height: 100%;
+      align-items: center;
+      display: flex;
+      flex-direction: column;
       color: black;
+      gap: 10px;
+
+      .auth-title {
+        font-family: "Trebuchet MS", "Lucida Sans Unicode", "Lucida Grande",
+          "Lucida Sans", Arial, sans-serif;
+        font-size: 18px;
+      }
+
+      .form-group {
+        margin-bottom: 1rem;
+        width: 100%;
+
+        .input-auth {
+          width: 100%;
+          padding: 0.5rem;
+          border: 1px solid #ddd;
+          border-radius: 4px;
+
+          &:focus {
+            border-color: #ba147d;
+            outline: none;
+            box-shadow: 0 0 0 2px rgba(255, 105, 180, 0.2);
+          }
+        }
+
+        .error-massage {
+          color: #ba147d;
+          font-size: 0.8rem;
+          display: block;
+        }
+      }
+      .but-auth {
+        color: white !important;
+
+        width: 30%;
+        height: 15%;
+        background-color: rgb(183, 40, 128);
+        display: flex;
+        align-items: center;
+        justify-content: center;
+        font-size: 17px;
+        font-family: "Trebuchet MS", "Lucida Sans Unicode", "Lucida Grande",
+          "Lucida Sans", Arial, sans-serif;
+        margin-top: 40px;
+      }
+
+      .but-auth-registration {
+        color: white !important;
+
+        width: 50%;
+        height: 15%;
+        background-color: rgb(183, 40, 128);
+        display: flex;
+        align-items: center;
+        justify-content: center;
+        font-size: 17px;
+        font-family: "Trebuchet MS", "Lucida Sans Unicode", "Lucida Grande",
+          "Lucida Sans", Arial, sans-serif;
+      }
+      .auth-link {
+        text-align: center;
+        margin-top: 1rem;
+        color: black;
+      }
     }
   }
 }

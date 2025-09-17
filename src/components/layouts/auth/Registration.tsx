@@ -91,60 +91,63 @@ const Registration = () => {
 
   return (
     <div className="auth-container">
-      <form className="auth-form" onSubmit={handleRegistration}>
-        <h2>Регистрация</h2>
+      <div className="auth-wrapper">
+        <div className="auth-picture">РЕГИСТРАЦИЯ</div>
+        <form className="auth-form" onSubmit={handleRegistration}>
+          <h2 className="auth-title">Регистрация</h2>
 
-        <div className="form-group">
-          <input
-            className="input-auth"
-            type="text"
-            name="login"
-            placeholder="Логин"
-            value={formData.login}
-            onChange={handleInputChange}
-            required
-          />
-          {errors.login && (
-            <span className="error-massage">{errors.login}</span>
-          )}
-        </div>
-        <div className="form-group">
-          <input
-            className="input-auth"
-            type="password"
-            name="password"
-            placeholder="Пароль"
-            value={formData.password}
-            onChange={handleInputChange}
-            required
-          />
-          {errors.password && (
-            <span className="error-massage">{errors.password}</span>
-          )}
-        </div>
+          <div className="form-group">
+            <input
+              className="input-auth"
+              type="text"
+              name="login"
+              placeholder="Логин"
+              value={formData.login}
+              onChange={handleInputChange}
+              required
+            />
+            {errors.login && (
+              <span className="error-massage">{errors.login}</span>
+            )}
+          </div>
+          <div className="form-group">
+            <input
+              className="input-auth"
+              type="password"
+              name="password"
+              placeholder="Пароль"
+              value={formData.password}
+              onChange={handleInputChange}
+              required
+            />
+            {errors.password && (
+              <span className="error-massage">{errors.password}</span>
+            )}
+          </div>
 
-        <div className="form-group">
-          <input
-            className="input-auth"
-            type="password"
-            name="confirmPassword"
-            placeholder="Подтвердите пароль"
-            value={formData.confirmPassword}
-            onChange={handleInputChange}
-            required
-          />
-          {errors.confirmPassword && (
-            <span className="error-massage">{errors.confirmPassword}</span>
-          )}
-        </div>
-        <Button type="submit" size="big">
-          Зарегистрироваться
-        </Button>
+          <div className="form-group">
+            <input
+              className="input-auth"
+              type="password"
+              name="confirmPassword"
+              placeholder="Подтвердите пароль"
+              value={formData.confirmPassword}
+              onChange={handleInputChange}
+              required
+            />
+            {errors.confirmPassword && (
+              <span className="error-massage">{errors.confirmPassword}</span>
+            )}
+          </div>
+          <Button className="but-auth-registration" type="submit" size="big">
+            Зарегистрироваться
+          </Button>
 
-        <p className="auth-link">
-          Уже есть аккаунт? <Link to="/authorisation">Войти</Link>
-        </p>
-      </form>
+          <p className="auth-link">
+            Уже есть аккаунт? <Link to="/authorisation">Войти</Link>
+          </p>
+        </form>
+      </div>
     </div>
   );
 };

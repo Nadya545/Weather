@@ -72,44 +72,47 @@ const Authorisation = () => {
 
   return (
     <div className="auth-container">
-      <form className="auth-form" onSubmit={handleAuthorisation}>
-        <h2>Авторизация</h2>
+      <div className="auth-wrapper">
+        <div className="auth-picture">АВТОРИЗАЦИЯ</div>
+        <form className="auth-form" onSubmit={handleAuthorisation}>
+          <h2 className="auth-title">Авторизация</h2>
 
-        <div className="form-group">
-          <input
-            className="input-auth"
-            type="text"
-            name="login"
-            placeholder="Логин"
-            value={formData.login}
-            onChange={handleInputChange}
-            required
-          />
-          {errors.login && (
-            <span className="error-massage">{errors.login}</span>
-          )}
-        </div>
-        <div className="form-group">
-          <input
-            className="input-auth"
-            type="password"
-            name="password"
-            placeholder="Пароль"
-            value={formData.password}
-            onChange={handleInputChange}
-            required
-          />
-          {errors.password && (
-            <span className="error-massage">{errors.password}</span>
-          )}
-        </div>
-        <Button className="but-auth" type="submit" size="big">
-          Войти
-        </Button>
-        <p className="auth-link">
-          Нет аккаунта? <Link to="/registration">Зарегистрироваться</Link>
-        </p>
-      </form>
+          <div className="form-group">
+            <input
+              className="input-auth"
+              type="text"
+              name="login"
+              placeholder="Логин"
+              value={formData.login}
+              onChange={handleInputChange}
+              required
+            />
+            {errors.login && (
+              <span className="error-massage">{errors.login}</span>
+            )}
+          </div>
+          <div className="form-group">
+            <input
+              className="input-auth"
+              type="password"
+              name="password"
+              placeholder="Пароль"
+              value={formData.password}
+              onChange={handleInputChange}
+              required
+            />
+            {errors.password && (
+              <span className="error-massage">{errors.password}</span>
+            )}
+          </div>
+          <Button className="but-auth" type="submit" size="big">
+            Войти
+          </Button>
+          <p className="auth-link">
+            Нет аккаунта? <Link to="/registration">Зарегистрироваться</Link>
+          </p>
+        </form>
+      </div>
     </div>
   );
 };
