@@ -75,7 +75,7 @@
       .but-auth {
         color: white !important;
 
-        width: 30%;
+        width: 150px;
         height: 15%;
         background-color: rgb(183, 40, 128);
         display: flex;
@@ -90,7 +90,7 @@
       .but-auth-registration {
         color: white !important;
 
-        width: 50%;
+        width: 200px;
         height: 15%;
         background-color: rgb(183, 40, 128);
         display: flex;
@@ -106,5 +106,19 @@
         color: black;
       }
     }
+  }
+}
+
+@media (max-width: 900px) {
+  .auth-picture {
+    display: none !important;
+  }
+  .auth-form {
+    border-radius: 8px !important;
+    width: 100% !important;
+  }
+  .but-auth,
+  .but-registration {
+    margin: 0;
   }
 }
