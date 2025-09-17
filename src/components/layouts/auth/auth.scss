@@ -111,6 +111,16 @@
 
 @media (max-width: 900px) {
   .auth-picture {
+    width: 30% !important;
+    font-size: 13px !important;
+  }
+  .auth-form {
+    width: 60% !important;
+  }
+}
+
+@media (max-width: 600px) {
+  .auth-picture {
     display: none !important;
   }
   .auth-form {
