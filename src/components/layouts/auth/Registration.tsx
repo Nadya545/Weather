@@ -2,6 +2,7 @@ import React, { useState } from "react";
 import { useNavigate, Link } from "react-router-dom";
 import Button from "../../../ui/button/Button";
 import "./auth.scss";
+import { api } from "../../../services/api";
 
 const Registration = () => {
   const navigate = useNavigate();
@@ -63,30 +64,37 @@ const Registration = () => {
     return isValid;
   };
 
-  const handleRegistration = (e: React.FormEvent) => {
+  const handleRegistration = async (e: React.FormEvent) => {
     e.preventDefault();
     if (!validateForm()) return;
 
-    const users = JSON.parse(localStorage.getItem("users") || "[]");
-    const userExists = users.some((user: any) => user.login === formData.login);
+    try {
+      const existingUser = await api.getUserByLogin(formData.login);
 
-    if (userExists) {
+      if (existingUser) {
+        setErrors((prev) => ({
+          ...prev,
+          login: "Пользователь с таким логином уже существует!",
+        }));
+        return;
+      }
+
+      const newUser = await api.createUser({
+        login: formData.login,
+        password: formData.password,
+      });
+
+      localStorage.setItem("isAuthenticated", "true"); //  помечаю, что пользователь авторизован
+      localStorage.setItem("currentUser", formData.login); //  сохраняю логин текущего пользовател
+      localStorage.setItem("userId", newUser.id?.toString() || "");
+      navigate("/weather");
+    } catch (error) {
+      console.error("Ошибка регистрации:", error);
       setErrors((prev) => ({
         ...prev,
-        login: "Пользователь с таким логином уже существует!",
+        login: "Ошибка сервера при регистрации",
       }));
-      return;
     }
-
-    users.push({
-      login: formData.login,
-      passwort: formData.password,
-    });
-
-    localStorage.setItem("users", JSON.stringify(users)); // сохраняю обновленный список пользователей
-    localStorage.setItem("isAuthenticated", "true"); //  помечаю, что пользователь авторизован
-    localStorage.setItem("currentUser", formData.login); //  сохраняю логин текущего пользователя
-    navigate("/weather");
   };
 
   return (

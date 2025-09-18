@@ -2,6 +2,7 @@ import React, { useState } from "react";
 import { useNavigate, Link } from "react-router-dom";
 import Button from "../../../ui/button/Button";
 import "./auth.scss";
+import { api } from "../../../services/api";
 
 const Authorisation = () => {
   const navigate = useNavigate();
@@ -48,26 +49,33 @@ const Authorisation = () => {
     return isValid;
   };
 
-  const handleAuthorisation = (e: React.FormEvent) => {
+  const handleAuthorisation = async (e: React.FormEvent) => {
     e.preventDefault();
 
     if (!validateForm()) return;
-    const users = JSON.parse(localStorage.getItem("users") || "[]");
-    const user = users.find(
-      (user: any) =>
-        user.login === formData.login && user.password === formData.password
-    );
-    if (!user) {
-      setErrors({
-        login: "Неверный логин или пароль",
-        password: "Неверный логин или пароль",
-      });
-      return;
-    }
 
-    localStorage.setItem("isAuthenticated", "true"); //  помечаю, что пользователь авторизован
-    localStorage.setItem("currentUser", formData.login); //  сохраняю логин текущего пользователя
-    navigate("/weather");
+    try {
+      const user = await api.login(formData.login, formData.password);
+
+      if (!user) {
+        setErrors({
+          login: "Неверный логин или пароль",
+          password: "Неверный логин или пароль",
+        });
+        return;
+      }
+
+      localStorage.setItem("isAuthenticated", "true"); //  помечаю, что пользователь авторизован
+      localStorage.setItem("currentUser", formData.login); //  сохраняю логин текущего пользователя
+      localStorage.setItem("userId", user.id?.toString() || "");
+      navigate("/weather");
+    } catch (error) {
+      console.error("Ошибка авторизации:", error);
+      setErrors({
+        login: "Ошибка сервера",
+        password: "Попробуйте позже",
+      });
+    }
   };
 
   return (
@@ -116,5 +124,4 @@ const Authorisation = () => {
     </div>
   );
 };
-
 export default Authorisation;
