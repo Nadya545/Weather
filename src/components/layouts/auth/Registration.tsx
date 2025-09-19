@@ -101,7 +101,7 @@ const Registration = () => {
     <div className="auth-container">
       <div className="auth-wrapper">
         <div className="auth-picture">РЕГИСТРАЦИЯ</div>
-        <form className="auth-form" onSubmit={handleRegistration}>
+        <form className="auth-form-reg" onSubmit={handleRegistration}>
           <h2 className="auth-title">Регистрация</h2>
 
           <div className="form-group">
