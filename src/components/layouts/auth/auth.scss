@@ -10,15 +10,15 @@
   .auth-wrapper {
     display: flex;
     width: 90%;
-    align-items: center;
+    align-items: stretch;
     justify-content: center;
-    height: 50%;
+    min-height: 50%;
 
     .auth-picture {
       width: 40%;
       background-image: url(https://i.ytimg.com/vi/xFdbep9DmN0/maxresdefault.jpg);
       background-size: cover;
-      height: 100%;
+      min-height: 100%;
       border-radius: 8px 0 0 8px;
 
       display: flex;
