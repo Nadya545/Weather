@@ -9,9 +9,9 @@ import YearsContainer from "./YearsContainer";
 import { initialDate } from "../calendar/const/const";
 import { generateMonthData } from "../../../helpers/generateMonthData";
 import { initialWeatherParams } from "../../../constants/diffrent";
-import useRequest from "../../../hooks/useRequest"; // Импортируем наш хук
+import useRequest from "../../../hooks/useRequest";
 import { WeatherData, Coordinates } from "./typeWeather/weather";
-import MyButton from "../../../ui/button/Button";
+import MyButton from "../../../UI/button/Button";
 import LogoutButton from "../../../routes/LogOutButton";
 import { useNavigate } from "react-router-dom";
 

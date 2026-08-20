@@ -1,6 +1,6 @@
 import React, { useState } from "react";
 import { useNavigate, Link } from "react-router-dom";
-import Button from "../../../ui/button/Button";
+import Button from "../../../UI/button/Button";
 import "./auth.scss";
 import { api } from "../../../services/api";
 

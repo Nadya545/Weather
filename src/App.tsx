@@ -2,7 +2,7 @@ import "./App.scss";
 import React from "react";
 import { useState, useEffect } from "react";
 import { loaderEventEmitter } from "./utils/eventEmitter";
-import Loader from "./ui/loader/Loader";
+import Loader from "./UI/loader/Loader";
 import { Outlet } from "react-router-dom";
 
 const App = () => {

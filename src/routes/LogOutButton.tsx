@@ -1,5 +1,5 @@
 import React from "react";
-import Button from "../ui/button/Button";
+import Button from "../UI/button/Button";
 import { useNavigate } from "react-router-dom";
 
 const LogOutButton: React.FC = () => {

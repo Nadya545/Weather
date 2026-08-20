@@ -5,7 +5,7 @@ import { createBrowserRouter, RouterProvider } from "react-router-dom";
 import { store } from "./store/store";
 import { Provider } from "react-redux";
 import { RouterConfig } from "./routes/RouterConfig";
-import Loader from "./ui/loader/Loader";
+import Loader from "./UI/loader/Loader";
 
 //Сейчас мы будем выбирать правильный адрес для сайта в зависимости от того,
 //где он работает: у меня на компе или в интернете

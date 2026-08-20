@@ -1,6 +1,6 @@
 import React, { useState } from "react";
 import { fetchСoordinates } from "../../../api/weather";
-import Button from "../../../ui/button/Button";
+import Button from "../../../UI/button/Button";
 import { CoordinatesProps } from "./typeWeather/weather";
 import useRequest from "../../../hooks/useRequest";
 
